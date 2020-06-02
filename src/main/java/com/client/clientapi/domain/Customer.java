@@ -33,4 +33,5 @@ public class Customer {
 
     @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;
+
 }
