@@ -2,10 +2,12 @@ package com.client.clientapi.mapper;
 
 import com.client.clientapi.domain.ClinicOperations;
 import com.client.clientapi.domain.ClinicOperationsDto;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class ClinicOperationsMapper {
     public ClinicOperations map(final ClinicOperationsDto clinicOperationsDto) {
         return ClinicOperations.builder()
