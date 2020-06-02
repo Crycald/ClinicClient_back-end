@@ -34,6 +34,7 @@ public class CustomerMapperTestSuite {
         Assert.assertEquals(customerDto.getEmail(), customer.getEmail());
         Assert.assertEquals(customerDto.getPhoneNumber(), customer.getPhoneNumber());
         Assert.assertEquals(customerDto.getPassword(), customer.getPassword());
+
     }
 
     @Test
