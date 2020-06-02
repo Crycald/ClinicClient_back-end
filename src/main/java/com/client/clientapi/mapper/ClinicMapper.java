@@ -23,15 +23,15 @@ public class ClinicMapper {
     }
 
     public ClinicDto mapToDto(final Clinic clinic) {
-        return ClinicDto.builder()
-                .id(clinic.getId())
-                .name(clinic.getName())
-                .address(clinic.getAddress())
-                .nip(clinic.getNip())
-                .password(clinic.getPassword())
-                .phoneNumber(clinic.getPhoneNumber())
-                .mail(clinic.getMail())
-                .build();
+        return new ClinicDto(
+                clinic.getId(),
+                clinic.getName(),
+                clinic.getTypeOfAnimal(),
+                clinic.getAddress(),
+                clinic.getNip(),
+                clinic.getPassword(),
+                clinic.getPhoneNumber(),
+                clinic.getMail());
     }
 
     public List<ClinicDto> list(final List<Clinic> clinicList) {
