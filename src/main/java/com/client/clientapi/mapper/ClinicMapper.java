@@ -29,9 +29,9 @@ public class ClinicMapper {
                 clinic.getTypeOfAnimal(),
                 clinic.getAddress(),
                 clinic.getNip(),
-                clinic.getPassword(),
                 clinic.getPhoneNumber(),
-                clinic.getMail());
+                clinic.getMail(),
+                clinic.getPassword());
     }
 
     public List<ClinicDto> list(final List<Clinic> clinicList) {
