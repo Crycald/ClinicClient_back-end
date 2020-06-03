@@ -1,7 +1,7 @@
 package com.client.clientapi.mapper;
 
-import com.client.clientapi.domain.ClinicOperations;
-import com.client.clientapi.domain.ClinicOperationsDto;
+import com.client.clientapi.domain.OperationAct;
+import com.client.clientapi.domain.OperationActDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,26 +9,26 @@ import java.util.stream.Collectors;
 
 @Component
 public class ClinicOperationsMapper {
-    public ClinicOperations map(final ClinicOperationsDto clinicOperationsDto) {
-        return ClinicOperations.builder()
-                .id(clinicOperationsDto.getId())
-                .clinic_id(clinicOperationsDto.getClinic_id())
-                .operations(clinicOperationsDto.getOperations())
-                .cost(clinicOperationsDto.getCost())
+    public OperationAct map(final OperationActDto operationActDto) {
+        return OperationAct.builder()
+                .id(operationActDto.getId())
+                .clinic_id(operationActDto.getClinic_id())
+                .operations(operationActDto.getOperations())
+                .cost(operationActDto.getCost())
                 .build();
     }
 
-    public ClinicOperationsDto mapToDto(final ClinicOperations clinicOperations) {
-        return new ClinicOperationsDto(
-                clinicOperations.getId(),
-                clinicOperations.getClinic_id(),
-                clinicOperations.getOperations(),
-                clinicOperations.getCost()
+    public OperationActDto mapToDto(final OperationAct operationAct) {
+        return new OperationActDto(
+                operationAct.getId(),
+                operationAct.getClinic_id(),
+                operationAct.getOperations(),
+                operationAct.getCost()
         );
     }
 
-    public List<ClinicOperationsDto> list(final List<ClinicOperations> clinicOperationsList) {
-        return clinicOperationsList.stream()
+    public List<OperationActDto> list(final List<OperationAct> operationActList) {
+        return operationActList.stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }

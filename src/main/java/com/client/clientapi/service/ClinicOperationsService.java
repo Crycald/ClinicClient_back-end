@@ -1,7 +1,7 @@
 package com.client.clientapi.service;
 
-import com.client.clientapi.domain.ClinicOperations;
-import com.client.clientapi.domain.ClinicOperationsDto;
+import com.client.clientapi.domain.OperationAct;
+import com.client.clientapi.domain.OperationActDto;
 import com.client.clientapi.mapper.ClinicOperationsMapper;
 import com.client.clientapi.repository.ClinicOperationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,27 +21,27 @@ public class ClinicOperationsService {
         this.mapper = mapper;
     }
 
-    public List<ClinicOperationsDto> getSpecializations() {
+    public List<OperationActDto> getSpecializations() {
         return mapper.list(repository.findAll());
     }
 
-    public ClinicOperationsDto getSpecializationById(final Long id) {
-        Optional<ClinicOperations> operations = repository.findById(id);
+    public OperationActDto getSpecializationById(final Long id) {
+        Optional<OperationAct> operations = repository.findById(id);
         return mapper.mapToDto(operations.orElse(null));
     }
 
-    public ClinicOperationsDto createSpecialization(final ClinicOperationsDto clinicOperationsDto) {
-        clinicOperationsDto.setId(null);
-        ClinicOperations clinicOperations = mapper.map(clinicOperationsDto);
-        return mapper.mapToDto(repository.save(clinicOperations));
+    public OperationActDto createSpecialization(final OperationActDto operationActDto) {
+        operationActDto.setId(null);
+        OperationAct operationAct = mapper.map(operationActDto);
+        return mapper.mapToDto(repository.save(operationAct));
     }
 
     public void deleteSpecialization(final Long id) {
         repository.deleteById(id);
     }
 
-    public ClinicOperationsDto updateSpecialization(final ClinicOperationsDto clinicOperationsDto) {
-        repository.findById(clinicOperationsDto.getId()).orElse(null);
-        return mapper.mapToDto(repository.save(mapper.map(clinicOperationsDto)));
+    public OperationActDto updateSpecialization(final OperationActDto operationActDto) {
+        repository.findById(operationActDto.getId()).orElse(null);
+        return mapper.mapToDto(repository.save(mapper.map(operationActDto)));
     }
 }

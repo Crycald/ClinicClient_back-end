@@ -8,12 +8,11 @@ import java.math.BigDecimal;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Builder
 @Data
 @Entity
 @Table(name = "CLINIC_OPERATIONS")
-public class ClinicOperations {
+public class OperationAct {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
@@ -22,6 +21,7 @@ public class ClinicOperations {
     @Column(name = "CLINIC_ID", nullable = false)
     private Long clinic_id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "OPERATIONS", nullable = false)
     private Operation operations;
 

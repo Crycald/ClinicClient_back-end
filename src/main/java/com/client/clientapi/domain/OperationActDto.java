@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Builder
-public class ClinicOperationsDto {
+public class OperationActDto {
     private Long id;
     private Long clinic_id;
     private Operation operations;
