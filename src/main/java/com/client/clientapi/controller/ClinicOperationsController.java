@@ -1,6 +1,6 @@
 package com.client.clientapi.controller;
 
-import com.client.clientapi.domain.ClinicOperationsDto;
+import com.client.clientapi.domain.OperationActDto;
 import com.client.clientapi.service.ClinicOperationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +19,18 @@ public class ClinicOperationsController {
     }
 
     @GetMapping(value = "/getSpecializations")
-    public List<ClinicOperationsDto> getSpecializations() {
+    public List<OperationActDto> getSpecializations() {
         return service.getSpecializations();
     }
 
     @GetMapping(value = "/getSpecialization")
-    public ClinicOperationsDto getSpecializationById(@RequestParam Long id) {
+    public OperationActDto getSpecializationById(@RequestParam Long id) {
         return service.getSpecializationById(id);
     }
 
     @PostMapping(value = "/createSpecialization")
-    public ClinicOperationsDto createSpecialization(@RequestBody ClinicOperationsDto clinicOperationsDto) {
-        return service.createSpecialization(clinicOperationsDto);
+    public OperationActDto createSpecialization(@RequestBody OperationActDto operationActDto) {
+        return service.createSpecialization(operationActDto);
     }
 
     @DeleteMapping(value = "/deleteSpecialization")
@@ -39,7 +39,7 @@ public class ClinicOperationsController {
     }
 
     @PutMapping(value = "/updateSpecialization")
-    public ClinicOperationsDto updateSpecialization(@RequestBody ClinicOperationsDto clinicOperationsDto) {
-        return service.updateSpecialization(clinicOperationsDto);
+    public OperationActDto updateSpecialization(@RequestBody OperationActDto operationActDto) {
+        return service.updateSpecialization(operationActDto);
     }
 }
