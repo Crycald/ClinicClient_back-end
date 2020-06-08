@@ -2,6 +2,7 @@ package com.client.clientapi.service;
 
 import com.client.clientapi.domain.Customer;
 import com.client.clientapi.domain.CustomerDto;
+import com.client.clientapi.exception.customer.CustomerNotFoundException;
 import com.client.clientapi.mapper.CustomerMapper;
 import com.client.clientapi.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class CustomerService {
 
     public CustomerDto getCustomerById(final Long id) {
         Optional<Customer> customer = repository.findById(id);
-        return mapper.mapToDto(customer.orElse(null));
+        return mapper.mapToDto(customer.orElseThrow(() -> new CustomerNotFoundException(id)));
     }
 
     public CustomerDto createCustomer(final CustomerDto customerDto) {
@@ -41,7 +42,7 @@ public class CustomerService {
     }
 
     public CustomerDto updateCustomer(final CustomerDto customerDto) {
-        repository.findById(customerDto.getId()).orElse(null);
+        repository.findById(customerDto.getId()).orElseThrow(() -> new CustomerNotFoundException(customerDto.getId()));
         return mapper.mapToDto(repository.save(mapper.map(customerDto)));
     }
 }
