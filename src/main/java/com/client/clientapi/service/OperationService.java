@@ -3,6 +3,8 @@ package com.client.clientapi.service;
 import com.client.clientapi.domain.Clinic;
 import com.client.clientapi.domain.Operation;
 import com.client.clientapi.domain.OperationDto;
+import com.client.clientapi.exception.clinic.ClinicNotFoundException;
+import com.client.clientapi.exception.operation.OperationNotFoundException;
 import com.client.clientapi.mapper.OperationMapper;
 import com.client.clientapi.repository.OperationRepository;
 import com.client.clientapi.repository.ClinicRepository;
@@ -31,12 +33,12 @@ public class OperationService {
 
     public OperationDto getSpecializationById(final Long id) {
         Optional<Operation> operations = repository.findById(id);
-        return mapper.mapToDto(operations.orElse(null));
+        return mapper.mapToDto(operations.orElseThrow(() -> new OperationNotFoundException(id)));
     }
 
     public OperationDto createSpecialization(final OperationDto operationDto) {
         operationDto.setId(null);
-        Clinic clinic = clinicRepository.findById(operationDto.getClinic_id()).orElse(null);
+        Clinic clinic = clinicRepository.findById(operationDto.getClinic_id()).orElseThrow(() -> new ClinicNotFoundException(operationDto.getClinic_id()));
         Operation operation = mapper.map(operationDto, clinic);
         return mapper.mapToDto(repository.save(operation));
     }
@@ -46,8 +48,8 @@ public class OperationService {
     }
 
     public OperationDto updateSpecialization(final OperationDto operationDto) {
-        repository.findById(operationDto.getId()).orElse(null);
-        Clinic clinic = clinicRepository.findById(operationDto.getClinic_id()).orElse(null);
+        repository.findById(operationDto.getId()).orElseThrow(() -> new OperationNotFoundException(operationDto.getId()));
+        Clinic clinic = clinicRepository.findById(operationDto.getClinic_id()).orElseThrow(() -> new ClinicNotFoundException(operationDto.getClinic_id()));
         return mapper.mapToDto(repository.save(mapper.map(operationDto, clinic)));
     }
 }
