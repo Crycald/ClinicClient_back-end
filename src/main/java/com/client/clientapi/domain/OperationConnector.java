@@ -16,18 +16,21 @@ import java.time.LocalDate;
 @Table(name = "OPERATION_CONNECTOR")
 public class OperationConnector {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "CLINIC_ID", nullable = false)
-    private Long clinicId;
+    @ManyToOne
+    @JoinColumn(name = "CLINIC_ID")
+    private Clinic clinicId;
 
-    @Column(name = "CUSTOMER_ID", nullable = false)
-    private Long customerId;
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID")
+    private Customer customerId;
 
-    @Column(name = "OPERATION_ACT_ID", nullable = false)
-    private Long operationActId;
+    @ManyToOne
+    @JoinColumn(name = "OPERATION_ACT_ID")
+    private OperationAct operationActId;
 
     @Column(name = "DATE")
     private LocalDate date;

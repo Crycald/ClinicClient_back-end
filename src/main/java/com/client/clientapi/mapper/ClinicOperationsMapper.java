@@ -1,5 +1,6 @@
 package com.client.clientapi.mapper;
 
+import com.client.clientapi.domain.Clinic;
 import com.client.clientapi.domain.OperationAct;
 import com.client.clientapi.domain.OperationActDto;
 import org.springframework.stereotype.Component;
@@ -9,10 +10,10 @@ import java.util.stream.Collectors;
 
 @Component
 public class ClinicOperationsMapper {
-    public OperationAct map(final OperationActDto operationActDto) {
+    public OperationAct map(final OperationActDto operationActDto, final Clinic clinic) {
         return OperationAct.builder()
                 .id(operationActDto.getId())
-                .clinic_id(operationActDto.getClinic_id())
+                .clinic_id(clinic)
                 .operations(operationActDto.getOperations())
                 .cost(operationActDto.getCost())
                 .build();
@@ -21,7 +22,7 @@ public class ClinicOperationsMapper {
     public OperationActDto mapToDto(final OperationAct operationAct) {
         return new OperationActDto(
                 operationAct.getId(),
-                operationAct.getClinic_id(),
+                operationAct.getClinic_id().getId(),
                 operationAct.getOperations(),
                 operationAct.getCost()
         );

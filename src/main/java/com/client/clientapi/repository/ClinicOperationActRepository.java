@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface ClinicOperationsRepository extends CrudRepository<OperationAct, Long> {
+public interface ClinicOperationActRepository extends CrudRepository<OperationAct, Long> {
 
     @Override
     List<OperationAct> findAll();

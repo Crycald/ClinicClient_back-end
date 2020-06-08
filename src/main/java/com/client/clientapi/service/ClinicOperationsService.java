@@ -1,9 +1,11 @@
 package com.client.clientapi.service;
 
+import com.client.clientapi.domain.Clinic;
 import com.client.clientapi.domain.OperationAct;
 import com.client.clientapi.domain.OperationActDto;
 import com.client.clientapi.mapper.ClinicOperationsMapper;
-import com.client.clientapi.repository.ClinicOperationsRepository;
+import com.client.clientapi.repository.ClinicOperationActRepository;
+import com.client.clientapi.repository.ClinicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +14,15 @@ import java.util.Optional;
 
 @Service
 public class ClinicOperationsService {
-    private ClinicOperationsRepository repository;
+    private ClinicOperationActRepository repository;
     private ClinicOperationsMapper mapper;
+    private ClinicRepository clinicRepository;
 
     @Autowired
-    public ClinicOperationsService(ClinicOperationsRepository repository, ClinicOperationsMapper mapper) {
+    public ClinicOperationsService(ClinicOperationActRepository repository, ClinicOperationsMapper mapper, ClinicRepository clinicRepository) {
         this.repository = repository;
         this.mapper = mapper;
+        this.clinicRepository = clinicRepository;
     }
 
     public List<OperationActDto> getSpecializations() {
@@ -32,7 +36,8 @@ public class ClinicOperationsService {
 
     public OperationActDto createSpecialization(final OperationActDto operationActDto) {
         operationActDto.setId(null);
-        OperationAct operationAct = mapper.map(operationActDto);
+        Clinic clinic = clinicRepository.findById(operationActDto.getClinic_id()).orElse(null);
+        OperationAct operationAct = mapper.map(operationActDto, clinic);
         return mapper.mapToDto(repository.save(operationAct));
     }
 
@@ -42,6 +47,7 @@ public class ClinicOperationsService {
 
     public OperationActDto updateSpecialization(final OperationActDto operationActDto) {
         repository.findById(operationActDto.getId()).orElse(null);
-        return mapper.mapToDto(repository.save(mapper.map(operationActDto)));
+        Clinic clinic = clinicRepository.findById(operationActDto.getClinic_id()).orElse(null);
+        return mapper.mapToDto(repository.save(mapper.map(operationActDto, clinic)));
     }
 }

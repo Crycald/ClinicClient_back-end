@@ -5,21 +5,24 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
 @Entity
-@Table(name = "CLINIC_OPERATIONS")
+@Table(name = "OPERATION_ACT")
 public class OperationAct {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "CLINIC_ID", nullable = false)
-    private Long clinic_id;
+    @ManyToOne
+    @JoinColumn(name = "CLINIC_ID")
+    private Clinic clinic_id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "OPERATIONS", nullable = false)
@@ -27,4 +30,12 @@ public class OperationAct {
 
     @Column(name = "COST")
     private BigDecimal cost;
+
+    @OneToMany(
+            targetEntity = OperationConnector.class,
+            mappedBy = "operationActId",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<OperationConnector> list = new ArrayList<>();
 }
