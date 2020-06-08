@@ -1,6 +1,6 @@
 package com.client.clientapi.domain.enums;
 
-public enum Operation {
+public enum TypeOfOperation {
     SZCZEPIENIE,
     KASTRACJA,
     ODROBACZANIE,

@@ -1,6 +1,6 @@
 package com.client.clientapi.repository;
 
-import com.client.clientapi.domain.OperationAct;
+import com.client.clientapi.domain.Operation;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,16 +10,16 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface ClinicOperationActRepository extends CrudRepository<OperationAct, Long> {
+public interface OperationRepository extends CrudRepository<Operation, Long> {
 
     @Override
-    List<OperationAct> findAll();
+    List<Operation> findAll();
 
     @Override
-    OperationAct save(OperationAct operationAct);
+    Operation save(Operation operation);
 
     @Override
-    Optional<OperationAct> findById(Long id);
+    Optional<Operation> findById(Long id);
 
     @Override
     void deleteById(Long id);

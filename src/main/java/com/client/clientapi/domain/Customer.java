@@ -39,8 +39,8 @@ public class Customer {
     @OneToMany(
             targetEntity = OperationConnector.class,
             mappedBy = "customerId",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.EAGER
     )
     private List<OperationConnector> listOfOperations = new ArrayList<>();
 }

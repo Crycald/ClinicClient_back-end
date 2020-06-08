@@ -9,12 +9,12 @@ import java.util.stream.Collectors;
 @Component
 public class OperationConnectorMapper {
 
-    public OperationConnector map(final OperationConnectorDto operationConnectorDto, final Clinic clinic, final Customer customer, final OperationAct operationAct) {
+    public OperationConnector map(final OperationConnectorDto operationConnectorDto, final Clinic clinic, final Customer customer, final Operation operation) {
         return OperationConnector.builder()
                 .id(operationConnectorDto.getId())
                 .clinicId(clinic)
                 .customerId(customer)
-                .operationActId(operationAct)
+                .operationId(operation)
                 .date(operationConnectorDto.getDate())
                 .build();
     }
@@ -24,7 +24,7 @@ public class OperationConnectorMapper {
                 operationConnector.getId(),
                 operationConnector.getClinicId().getId(),
                 operationConnector.getCustomerId().getId(),
-                operationConnector.getOperationActId().getId()
+                operationConnector.getOperationId().getId()
         );
     }
 

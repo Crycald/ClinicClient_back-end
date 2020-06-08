@@ -1,6 +1,6 @@
 package com.client.clientapi.domain;
 
-import com.client.clientapi.domain.enums.Operation;
+import com.client.clientapi.domain.enums.TypeOfOperation;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,8 +13,8 @@ import java.util.List;
 @Builder
 @Data
 @Entity
-@Table(name = "OPERATION_ACT")
-public class OperationAct {
+@Table(name = "OPERATION")
+public class Operation {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "ID")
@@ -26,16 +26,16 @@ public class OperationAct {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "OPERATIONS", nullable = false)
-    private Operation operations;
+    private TypeOfOperation operations;
 
     @Column(name = "COST")
     private BigDecimal cost;
 
     @OneToMany(
             targetEntity = OperationConnector.class,
-            mappedBy = "operationActId",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            mappedBy = "operationId",
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.LAZY
     )
     private List<OperationConnector> list = new ArrayList<>();
 }
