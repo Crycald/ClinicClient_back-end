@@ -25,7 +25,13 @@ public class CustomerMapperTestSuite {
 
     @Test
     public void testMapToDto() {
-        Customer customer = new Customer(1L, "Chris", "Mops", "pwd123", "mail@mail.com", "123-123-123");
+        Customer customer = new Customer();
+        customer.setId(1L);
+        customer.setFirstname("Chris");
+        customer.setLastname("Mops");
+        customer.setPassword("123pwd");
+        customer.setEmail("mail@mail.com");
+        customer.setPhoneNumber("123-123-123");
         CustomerDto customerDto = mapper.mapToDto(customer);
 
         Assert.assertEquals(customerDto.getId(), customer.getId());
@@ -39,19 +45,19 @@ public class CustomerMapperTestSuite {
 
     @Test
     public void testToList() {
-        Customer customer1 = new Customer(1L, "Chris", "Mops", "pwd123", "mail@mail.com", "123-123-123");
-        Customer customer2 = new Customer(1L, "Chris", "Mops", "pwd123", "mail@mail.com", "123-123-123");
-        Customer customer3 = new Customer(1L, "Chris", "Mops", "pwd123", "mail@mail.com", "123-123-123");
-        Customer customer4 = new Customer(1L, "Chris", "Mops", "pwd123", "mail@mail.com", "123-123-123");
+        Customer customer1 = new Customer();
+        customer1.setId(1L);
+        customer1.setFirstname("Chris");
+        customer1.setLastname("Mops");
+        customer1.setPassword("123pwd");
+        customer1.setEmail("mail@mail.com");
+        customer1.setPhoneNumber("123-123-123");
 
         List<Customer> customerList = new ArrayList<>();
         customerList.add(customer1);
-        customerList.add(customer2);
-        customerList.add(customer3);
-        customerList.add(customer4);
 
         List<CustomerDto> customerDtoList = mapper.list(customerList);
 
-        Assert.assertEquals(4, customerDtoList.size());
+        Assert.assertEquals(1, customerDtoList.size());
     }
 }

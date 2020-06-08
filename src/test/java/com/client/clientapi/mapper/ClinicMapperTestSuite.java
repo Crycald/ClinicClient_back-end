@@ -29,30 +29,41 @@ public class ClinicMapperTestSuite {
 
     @Test
     public void testMapToDto() {
-        Clinic clinic = new Clinic(1L, "comp_name", TypeOfAnimal.FRETKA, "Address", 132352553L, "123-123-123", "mail@mail.com", "pwd123");
-        ClinicDto clinicDto = mapper.mapToDto(clinic);
+        Clinic clinic1 = new Clinic();
+        clinic1.setId(1L);
+        clinic1.setName("comp_name");
+        clinic1.setTypeOfAnimal(TypeOfAnimal.FRETKA);
+        clinic1.setAddress("address");
+        clinic1.setNip(12312312312L);
+        clinic1.setPhoneNumber("123-123-123");
+        clinic1.setMail("mail@mail.com");
+        clinic1.setPassword("pwd123");
 
-        Assert.assertEquals(clinic.getId(), clinicDto.getId());
-        Assert.assertEquals(clinic.getName(), clinicDto.getName());
-        Assert.assertEquals(clinic.getAddress(), clinicDto.getAddress());
-        Assert.assertEquals(clinic.getMail(), clinicDto.getMail());
-        Assert.assertEquals(clinic.getTypeOfAnimal(), clinicDto.getTypeOfAnimal());
-        Assert.assertEquals(clinic.getNip(), clinicDto.getNip());
-        Assert.assertEquals(clinic.getPassword(), clinicDto.getPassword());
+        ClinicDto clinicDto = mapper.mapToDto(clinic1);
+
+        Assert.assertEquals(clinic1.getId(), clinicDto.getId());
+        Assert.assertEquals(clinic1.getName(), clinicDto.getName());
+        Assert.assertEquals(clinic1.getAddress(), clinicDto.getAddress());
+        Assert.assertEquals(clinic1.getMail(), clinicDto.getMail());
+        Assert.assertEquals(clinic1.getTypeOfAnimal(), clinicDto.getTypeOfAnimal());
+        Assert.assertEquals(clinic1.getNip(), clinicDto.getNip());
+        Assert.assertEquals(clinic1.getPassword(), clinicDto.getPassword());
     }
 
     @Test
     public void testList() {
-        Clinic clinic1 = new Clinic(1L, "comp_name", TypeOfAnimal.FRETKA, "Address", 132352553L, "123-123-123", "mail@mail.com", "pwd123");
-        Clinic clinic2 = new Clinic(1L, "comp_name", TypeOfAnimal.FRETKA, "Address", 132352553L, "123-123-123", "mail@mail.com", "pwd123");
-        Clinic clinic3 = new Clinic(1L, "comp_name", TypeOfAnimal.FRETKA, "Address", 132352553L, "123-123-123", "mail@mail.com", "pwd123");
-        Clinic clinic4 = new Clinic(1L, "comp_name", TypeOfAnimal.FRETKA, "Address", 132352553L, "123-123-123", "mail@mail.com", "pwd123");
+        Clinic clinic1 = new Clinic();
+        clinic1.setId(1L);
+        clinic1.setName("comp_name");
+        clinic1.setTypeOfAnimal(TypeOfAnimal.FRETKA);
+        clinic1.setAddress("address");
+        clinic1.setNip(12312312312L);
+        clinic1.setPhoneNumber("123-123-123");
+        clinic1.setMail("mail@mail.com");
+        clinic1.setPassword("pwd123");
 
         List<Clinic> clinics = new ArrayList<>();
         clinics.add(clinic1);
-        clinics.add(clinic2);
-        clinics.add(clinic3);
-        clinics.add(clinic4);
 
         List<ClinicDto> clinicDtoList = mapper.list(clinics);
 
