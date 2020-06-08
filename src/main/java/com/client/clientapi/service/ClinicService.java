@@ -2,6 +2,7 @@ package com.client.clientapi.service;
 
 import com.client.clientapi.domain.Clinic;
 import com.client.clientapi.domain.ClinicDto;
+import com.client.clientapi.exception.clinic.ClinicNotFoundException;
 import com.client.clientapi.mapper.ClinicMapper;
 import com.client.clientapi.repository.ClinicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ClinicService {
 
     public ClinicDto getClinicById(final Long id) {
         Optional<Clinic> clinic = repository.findById(id);
-        return mapper.mapToDto(clinic.orElse(null));
+        return mapper.mapToDto(clinic.orElseThrow(() -> new ClinicNotFoundException(id)));
     }
 
     public ClinicDto createClinic(final ClinicDto clinicDto) {
@@ -41,7 +42,7 @@ public class ClinicService {
     }
 
     public ClinicDto updateClinic(final ClinicDto clinicDto) {
-        repository.findById(clinicDto.getId()).orElse(null);
+        repository.findById(clinicDto.getId()).orElseThrow(() -> new ClinicNotFoundException(clinicDto.getId()));
         return mapper.mapToDto(repository.save(mapper.map(clinicDto)));
     }
 }
