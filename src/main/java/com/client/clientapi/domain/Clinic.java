@@ -4,6 +4,8 @@ import com.client.clientapi.domain.enums.TypeOfAnimal;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,7 +15,7 @@ import javax.persistence.*;
 @Table(name = "CLINICS")
 public class Clinic {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "ID")
     private Long id;
 
@@ -38,4 +40,20 @@ public class Clinic {
 
     @Column(name = "PASSWORD", nullable = false)
     private String password;
+
+    @OneToMany(
+            targetEntity = OperationAct.class,
+            cascade = CascadeType.ALL,
+            mappedBy = "clinic_id",
+            orphanRemoval = true
+    )
+    private List<OperationAct> listOfAvailableOperations = new ArrayList<>();
+
+    @OneToMany(
+            targetEntity = OperationConnector.class,
+            cascade = CascadeType.ALL,
+            mappedBy = "clinicId",
+            orphanRemoval = true
+    )
+    private List<OperationConnector> listOfOperations = new ArrayList<>();
 }

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +17,7 @@ import javax.persistence.*;
 @Table(name = "CUSTOMERS")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "ID")
     private Long id;
 
@@ -33,4 +35,12 @@ public class Customer {
 
     @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;
+
+    @OneToMany(
+            targetEntity = OperationConnector.class,
+            mappedBy = "customerId",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<OperationConnector> listOfOperations = new ArrayList<>();
 }
