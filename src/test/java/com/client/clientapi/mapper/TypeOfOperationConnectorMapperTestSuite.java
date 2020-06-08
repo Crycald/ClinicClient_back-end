@@ -1,7 +1,7 @@
 package com.client.clientapi.mapper;
 
 import com.client.clientapi.domain.*;
-import com.client.clientapi.domain.enums.Operation;
+import com.client.clientapi.domain.enums.TypeOfOperation;
 import com.client.clientapi.domain.enums.TypeOfAnimal;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OperationConnectorMapperTestSuite {
+public class TypeOfOperationConnectorMapperTestSuite {
     private OperationConnectorMapper mapper = new OperationConnectorMapper();
 
     @Test
@@ -35,20 +35,20 @@ public class OperationConnectorMapperTestSuite {
         customer1.setEmail("mail@mail.com");
         customer1.setPhoneNumber("123-123-123");
 
-        OperationAct operationAct1 = new OperationAct();
+        Operation operation1 = new Operation();
 
-        operationAct1.setId(1L);
-        operationAct1.setClinic_id(clinic1);
-        operationAct1.setOperations(Operation.AMPUTACJA);
-        operationAct1.setCost(new BigDecimal(10000.00));
+        operation1.setId(1L);
+        operation1.setClinic_id(clinic1);
+        operation1.setOperations(TypeOfOperation.AMPUTACJA);
+        operation1.setCost(new BigDecimal(10000.00));
 
         OperationConnectorDto operationConnectorDto = new OperationConnectorDto(1L, 1L, 1L, 1L);
-        OperationConnector operationConnector = mapper.map(operationConnectorDto, clinic1, customer1, operationAct1);
+        OperationConnector operationConnector = mapper.map(operationConnectorDto, clinic1, customer1, operation1);
 
         Assert.assertEquals(operationConnector.getId(), operationConnectorDto.getId());
         Assert.assertEquals(operationConnector.getClinicId().getId(), operationConnectorDto.getClinicId());
         Assert.assertEquals(operationConnector.getCustomerId().getId(), operationConnectorDto.getCustomerId());
-        Assert.assertEquals(operationConnector.getOperationActId().getId(), operationConnectorDto.getOperationActId());
+        Assert.assertEquals(operationConnector.getOperationId().getId(), operationConnectorDto.getOperationActId());
     }
 
     @Test
@@ -71,20 +71,20 @@ public class OperationConnectorMapperTestSuite {
         customer1.setEmail("mail@mail.com");
         customer1.setPhoneNumber("123-123-123");
 
-        OperationAct operationAct1 = new OperationAct();
+        Operation operation1 = new Operation();
 
-        operationAct1.setId(1L);
-        operationAct1.setClinic_id(clinic1);
-        operationAct1.setOperations(Operation.AMPUTACJA);
-        operationAct1.setCost(new BigDecimal(10000.00));
+        operation1.setId(1L);
+        operation1.setClinic_id(clinic1);
+        operation1.setOperations(TypeOfOperation.AMPUTACJA);
+        operation1.setCost(new BigDecimal(10000.00));
 
-        OperationConnector operationConnector = new OperationConnector(1L, clinic1, customer1, operationAct1, LocalDate.of(2020,10,10));
+        OperationConnector operationConnector = new OperationConnector(1L, clinic1, customer1, operation1, LocalDate.of(2020,10,10));
         OperationConnectorDto operationConnectorDto = mapper.mapToDto(operationConnector);
 
         Assert.assertEquals(operationConnectorDto.getId(), operationConnector.getId());
         Assert.assertEquals(operationConnectorDto.getClinicId(), operationConnector.getClinicId().getId());
         Assert.assertEquals(operationConnectorDto.getCustomerId(), operationConnector.getCustomerId().getId());
-        Assert.assertEquals(operationConnectorDto.getOperationActId(), operationConnector.getOperationActId().getId());
+        Assert.assertEquals(operationConnectorDto.getOperationActId(), operationConnector.getOperationId().getId());
     }
 
     @Test
@@ -107,14 +107,14 @@ public class OperationConnectorMapperTestSuite {
         customer1.setEmail("mail@mail.com");
         customer1.setPhoneNumber("123-123-123");
 
-        OperationAct operationAct1 = new OperationAct();
+        Operation operation1 = new Operation();
 
-        operationAct1.setId(1L);
-        operationAct1.setClinic_id(clinic1);
-        operationAct1.setOperations(Operation.AMPUTACJA);
-        operationAct1.setCost(new BigDecimal(10000.00));
+        operation1.setId(1L);
+        operation1.setClinic_id(clinic1);
+        operation1.setOperations(TypeOfOperation.AMPUTACJA);
+        operation1.setCost(new BigDecimal(10000.00));
 
-        OperationConnector operationConnector1 = new OperationConnector(1L, clinic1, customer1, operationAct1, LocalDate.of(2020,10,10));
+        OperationConnector operationConnector1 = new OperationConnector(1L, clinic1, customer1, operation1, LocalDate.of(2020,10,10));
 
         List<OperationConnector> connectorList = new ArrayList<>();
         connectorList.add(operationConnector1);

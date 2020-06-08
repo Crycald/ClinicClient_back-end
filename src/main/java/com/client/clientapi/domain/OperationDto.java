@@ -1,6 +1,6 @@
 package com.client.clientapi.domain;
 
-import com.client.clientapi.domain.enums.Operation;
+import com.client.clientapi.domain.enums.TypeOfOperation;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Builder
-public class OperationActDto {
+public class OperationDto {
     private Long id;
     private Long clinic_id;
-    private Operation operations;
+    private TypeOfOperation operations;
     private BigDecimal cost;
 }

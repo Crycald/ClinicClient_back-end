@@ -2,7 +2,7 @@ package com.client.clientapi.service;
 
 import com.client.clientapi.domain.*;
 import com.client.clientapi.mapper.OperationConnectorMapper;
-import com.client.clientapi.repository.ClinicOperationActRepository;
+import com.client.clientapi.repository.OperationRepository;
 import com.client.clientapi.repository.ClinicRepository;
 import com.client.clientapi.repository.CustomerRepository;
 import com.client.clientapi.repository.OperationConnectorRepository;
@@ -18,15 +18,15 @@ public class OperationConnectorService {
     private OperationConnectorRepository repository;
     private ClinicRepository clinicRepository;
     private CustomerRepository customerRepository;
-    private ClinicOperationActRepository clinicOperationActRepository;
+    private OperationRepository operationRepository;
 
     @Autowired
-    public OperationConnectorService(OperationConnectorMapper mapper, OperationConnectorRepository repository, ClinicRepository clinicRepository, CustomerRepository customerRepository, ClinicOperationActRepository clinicOperationActRepository) {
+    public OperationConnectorService(OperationConnectorMapper mapper, OperationConnectorRepository repository, ClinicRepository clinicRepository, CustomerRepository customerRepository, OperationRepository operationRepository) {
         this.mapper = mapper;
         this.repository = repository;
         this.clinicRepository = clinicRepository;
         this.customerRepository = customerRepository;
-        this.clinicOperationActRepository = clinicOperationActRepository;
+        this.operationRepository = operationRepository;
     }
 
     public List<OperationConnectorDto> getOperationConnectors() {
@@ -42,8 +42,8 @@ public class OperationConnectorService {
         operationConnectorDto.setId(null);
         Clinic clinic = clinicRepository.findById(operationConnectorDto.getClinicId()).orElse(null);
         Customer customer = customerRepository.findById(operationConnectorDto.getCustomerId()).orElse(null);
-        OperationAct operationAct = clinicOperationActRepository.findById(operationConnectorDto.getOperationActId()).orElse(null);
-        OperationConnector operationConnector = mapper.map(operationConnectorDto, clinic, customer, operationAct);
+        Operation operation = operationRepository.findById(operationConnectorDto.getOperationActId()).orElse(null);
+        OperationConnector operationConnector = mapper.map(operationConnectorDto, clinic, customer, operation);
         return mapper.mapToDto(repository.save(operationConnector));
     }
 
@@ -55,7 +55,7 @@ public class OperationConnectorService {
         repository.findById(operationConnectorDto.getId()).orElse(null);
         Clinic clinic = clinicRepository.findById(operationConnectorDto.getClinicId()).orElse(null);
         Customer customer = customerRepository.findById(operationConnectorDto.getCustomerId()).orElse(null);
-        OperationAct operationAct = clinicOperationActRepository.findById(operationConnectorDto.getOperationActId()).orElse(null);
-        return mapper.mapToDto(repository.save(mapper.map(operationConnectorDto, clinic, customer, operationAct)));
+        Operation operation = operationRepository.findById(operationConnectorDto.getOperationActId()).orElse(null);
+        return mapper.mapToDto(repository.save(mapper.map(operationConnectorDto, clinic, customer, operation)));
     }
 }

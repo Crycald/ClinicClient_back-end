@@ -42,18 +42,18 @@ public class Clinic {
     private String password;
 
     @OneToMany(
-            targetEntity = OperationAct.class,
-            cascade = CascadeType.ALL,
+            targetEntity = Operation.class,
             mappedBy = "clinic_id",
-            orphanRemoval = true
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.LAZY
     )
-    private List<OperationAct> listOfAvailableOperations = new ArrayList<>();
+    private List<Operation> listOfAvailableOperations = new ArrayList<>();
 
     @OneToMany(
             targetEntity = OperationConnector.class,
-            cascade = CascadeType.ALL,
             mappedBy = "clinicId",
-            orphanRemoval = true
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.LAZY
     )
     private List<OperationConnector> listOfOperations = new ArrayList<>();
 }

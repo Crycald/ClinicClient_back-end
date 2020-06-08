@@ -29,8 +29,8 @@ public class OperationConnector {
     private Customer customerId;
 
     @ManyToOne
-    @JoinColumn(name = "OPERATION_ACT_ID")
-    private OperationAct operationActId;
+    @JoinColumn(name = "OPERATION_ID")
+    private Operation operationId;
 
     @Column(name = "DATE")
     private LocalDate date;
