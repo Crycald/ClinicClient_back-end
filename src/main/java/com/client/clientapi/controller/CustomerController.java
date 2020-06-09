@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/client/customers")
+@RequestMapping("/v1")
 @CrossOrigin("*")
 public class CustomerController {
     private final CustomerService service;
@@ -18,27 +18,27 @@ public class CustomerController {
         this.service = service;
     }
 
-    @GetMapping(value = "/getCustomers")
+    @GetMapping(value = "/customers")
     public List<CustomerDto> getCustomers() {
         return service.getCustomers();
     }
 
-    @GetMapping(value = "/getCustomer")
-    public CustomerDto getCustomerById(@RequestParam Long id) {
+    @GetMapping(value = "/customers/{id}")
+    public CustomerDto getCustomerById(@PathVariable Long id) {
         return service.getCustomerById(id);
     }
 
-    @PostMapping(value = "/createCustomer")
+    @PostMapping(value = "/customers")
     public CustomerDto createCustomer(@RequestBody CustomerDto customerDto) {
         return service.createCustomer(customerDto);
     }
 
-    @DeleteMapping(value = "/deleteCustomer")
-    public void deleteCustomer(@RequestParam Long id) {
+    @DeleteMapping(value = "/customers/{id}")
+    public void deleteCustomer(@PathVariable Long id) {
         service.deleteCustomer(id);
     }
 
-    @PutMapping(value = "/updateCustomer")
+    @PutMapping(value = "/customers")
     public CustomerDto updateCustomer(@RequestBody CustomerDto customerDto) {
         return service.updateCustomer(customerDto);
     }
