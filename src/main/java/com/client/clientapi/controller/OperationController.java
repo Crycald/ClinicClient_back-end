@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/client/operations")
+@RequestMapping("/v1")
 @CrossOrigin("*")
 public class OperationController {
     private final OperationService service;
@@ -18,27 +18,27 @@ public class OperationController {
         this.service = service;
     }
 
-    @GetMapping(value = "/getOperations")
+    @GetMapping(value = "/operations")
     public List<OperationDto> getSpecializations() {
         return service.getSpecializations();
     }
 
-    @GetMapping(value = "/getOperation")
-    public OperationDto getSpecializationById(@RequestParam Long id) {
+    @GetMapping(value = "/operations/{id}")
+    public OperationDto getSpecializationById(@PathVariable Long id) {
         return service.getSpecializationById(id);
     }
 
-    @PostMapping(value = "/createOperation")
+    @PostMapping(value = "/operations")
     public OperationDto createSpecialization(@RequestBody OperationDto operationDto) {
         return service.createSpecialization(operationDto);
     }
 
-    @DeleteMapping(value = "/deleteOperation")
-    public void deleteSpecialization(@RequestParam Long id) {
+    @DeleteMapping(value = "/operations/{id}")
+    public void deleteSpecialization(@PathVariable Long id) {
         service.deleteSpecialization(id);
     }
 
-    @PutMapping(value = "/updateOperation")
+    @PutMapping(value = "/operations")
     public OperationDto updateSpecialization(@RequestBody OperationDto operationDto) {
         return service.updateSpecialization(operationDto);
     }
