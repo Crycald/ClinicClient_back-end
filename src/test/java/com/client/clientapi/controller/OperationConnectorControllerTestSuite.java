@@ -29,7 +29,7 @@ public class OperationConnectorControllerTestSuite {
     private OperationConnectorService service;
 
     @Test
-    public void shouldFetchEmptyOperationList() throws Exception {
+    public void shouldFetchEmptyOperationConnectorList() throws Exception {
         List<OperationConnectorDto> operationConnectorDtoList = new ArrayList<>();
 
         when(service.getOperationConnectors()).thenReturn(operationConnectorDtoList);
@@ -40,7 +40,7 @@ public class OperationConnectorControllerTestSuite {
     }
 
     @Test
-    public void shouldFetchOperationList() throws Exception {
+    public void shouldFetchOperationConnectorList() throws Exception {
         List<OperationConnectorDto> operationConnectorDtoList = new ArrayList<>();
         operationConnectorDtoList.add(new OperationConnectorDto(1L, 1L, 1L, 1L));
 
@@ -56,7 +56,7 @@ public class OperationConnectorControllerTestSuite {
     }
 
     @Test
-    public void shouldFetchOperationListById() throws Exception {
+    public void shouldFetchOperationConnectorListById() throws Exception {
         OperationConnectorDto operationDto = new OperationConnectorDto(1L, 1L, 1L, 1L);
 
         when(service.getOperationConnectorById(1L)).thenReturn(operationDto);
@@ -71,7 +71,7 @@ public class OperationConnectorControllerTestSuite {
     }
 
     @Test
-    public void shouldDeleteOperationById() throws Exception {
+    public void shouldDeleteOperationConnectorById() throws Exception {
         OperationConnectorDto operationDto = new OperationConnectorDto(1L, 1L, 1L, 1L);
 
         when(service.getOperationConnectorById(1L)).thenReturn(operationDto);

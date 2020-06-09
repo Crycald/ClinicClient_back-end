@@ -87,7 +87,7 @@ public class OperationControllerTestSuite {
     }
 
     @Test
-    public void shouldUpdateClinic() throws Exception {
+    public void shouldUpdateOperation() throws Exception {
         OperationDto operationDto = new OperationDto(1L, 1L, TypeOfOperation.AMPUTACJA, new BigDecimal(1000.00));
 
         when(service.updateSpecialization(ArgumentMatchers.any())).thenReturn(operationDto);
