@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController()
-@RequestMapping("/operationConnector/lists")
+@RequestMapping("/v1")
 @CrossOrigin("*")
 public class OperationConnectorController {
     private final OperationConnectorService service;
@@ -18,27 +18,27 @@ public class OperationConnectorController {
         this.service = service;
     }
 
-    @GetMapping(value = "/getLists")
+    @GetMapping(value = "/operationLists")
     public List<OperationConnectorDto> getLists() {
         return service.getOperationConnectors();
     }
 
-    @GetMapping(value = "/getList")
-    public OperationConnectorDto getSingleList(@RequestParam Long id) {
+    @GetMapping(value = "/operationLists/{id}")
+    public OperationConnectorDto getSingleList(@PathVariable Long id) {
         return service.getOperationConnectorById(id);
     }
 
-    @PostMapping(value = "/createList")
+    @PostMapping(value = "/operationLists")
     public OperationConnectorDto createList(@RequestBody OperationConnectorDto operationConnectorDto) {
         return service.createOperationConnector(operationConnectorDto);
     }
 
-    @DeleteMapping(value = "/deleteList")
-    public void deleteList(@RequestParam Long id) {
+    @DeleteMapping(value = "/operationLists/{id}")
+    public void deleteList(@PathVariable Long id) {
         service.deleteOperationConnector(id);
     }
 
-    @PutMapping(value = "/updateList")
+    @PutMapping(value = "/operationLists")
     public OperationConnectorDto updateList(@RequestBody OperationConnectorDto operationConnectorDto) {
         return service.updateOperationConnector(operationConnectorDto);
     }
