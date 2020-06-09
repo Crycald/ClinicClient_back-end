@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/client/clinics")
+@RequestMapping("/v1")
 @CrossOrigin("*")
 public class ClinicController {
     private final ClinicService service;
@@ -18,27 +18,27 @@ public class ClinicController {
         this.service = service;
     }
 
-    @GetMapping(value = "/getClinics")
+    @GetMapping(value = "/clinics")
     public List<ClinicDto> getClinics() {
         return service.getClinics();
     }
 
-    @GetMapping(value = "/getClinic")
-    public ClinicDto getClinicById(@RequestParam Long id) {
+    @GetMapping(value = "/clinics/{id}")
+    public ClinicDto getClinicById(@PathVariable Long id) {
         return service.getClinicById(id);
     }
 
-    @PostMapping(value = "/createClinic")
+    @PostMapping(value = "/clinics")
     public ClinicDto createClinic(@RequestBody ClinicDto clinicDto) {
         return service.createClinic(clinicDto);
     }
 
-    @DeleteMapping(value = "/deleteClinic")
-    public void deleteClinic(@RequestParam Long id) {
+    @DeleteMapping(value = "/clinics/{id}")
+    public void deleteClinic(@PathVariable Long id) {
         service.deleteClinic(id);
     }
 
-    @PutMapping(value = "/updateClinic")
+    @PutMapping(value = "/clinics")
     public ClinicDto updateClinic(@RequestBody ClinicDto clinicDto) {
         return service.updateClinic(clinicDto);
     }
