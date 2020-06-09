@@ -1,6 +1,5 @@
 package com.client.clientapi.controller;
 
-import com.client.clientapi.domain.Customer;
 import com.client.clientapi.domain.CustomerDto;
 import com.client.clientapi.service.CustomerService;
 import com.google.gson.Gson;
@@ -65,13 +64,6 @@ public class CustomerControllerTestSuite {
     @Test
     public void shouldFetchCustomerById() throws Exception {
         CustomerDto customerDto = new CustomerDto(1L, "first", "last", "pwd", "@@@@", "123-123-123");
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstname("first");
-        customer.setLastname("last");
-        customer.setPassword("pwd");
-        customer.setEmail("@@@@");
-        customer.setPhoneNumber("123-123-123");
 
         when(service.getCustomerById(1L)).thenReturn(customerDto);
 
@@ -88,13 +80,6 @@ public class CustomerControllerTestSuite {
     @Test
     public void shouldDeleteCustomerById() throws Exception {
         CustomerDto customerDto = new CustomerDto(1L, "first", "last", "pwd", "@@@@", "123-123-123");
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstname("first");
-        customer.setLastname("last");
-        customer.setPassword("pwd");
-        customer.setEmail("@@@@");
-        customer.setPhoneNumber("123-123-123");
 
         when(service.getCustomerById(1L)).thenReturn(customerDto);
 
@@ -105,13 +90,6 @@ public class CustomerControllerTestSuite {
     @Test
     public void shouldUpdateCustomer() throws Exception {
         CustomerDto customerDto = new CustomerDto(1L, "first", "last", "pwd", "@@@@", "123-123-123");
-        Customer customer = new Customer();
-        customer.setId(1L);
-        customer.setFirstname("first");
-        customer.setLastname("last");
-        customer.setPassword("pwd");
-        customer.setEmail("@@@@");
-        customer.setPhoneNumber("123-123-123");
 
         when(service.updateCustomer(ArgumentMatchers.any())).thenReturn(customerDto);
         Gson gson = new Gson();
