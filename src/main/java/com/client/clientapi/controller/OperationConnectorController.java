@@ -29,8 +29,8 @@ public class OperationConnectorController {
     }
 
     @PostMapping(value = "/operationLists")
-    public OperationConnectorDto createList(@RequestBody OperationConnectorDto operationConnectorDto) {
-        return service.createOperationConnector(operationConnectorDto);
+    public void createList(@RequestBody OperationConnectorDto operationConnectorDto) {
+        service.createOperationConnector(operationConnectorDto);
     }
 
     @DeleteMapping(value = "/operationLists/{id}")

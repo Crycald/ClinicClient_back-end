@@ -1,6 +1,7 @@
 package com.client.clientapi.domain;
 
 import com.client.clientapi.domain.enums.TypeOfOperation;
+import com.client.clientapi.domain.logs.OperationConnectorLogs;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,4 +39,10 @@ public class Operation {
             fetch = FetchType.LAZY
     )
     private List<OperationConnector> list = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "operationId",
+            cascade = CascadeType.REMOVE
+    )
+    private List<OperationConnectorLogs> operationConnectorLogs = new ArrayList<>();
 }

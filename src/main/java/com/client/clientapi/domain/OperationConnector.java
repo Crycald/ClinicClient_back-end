@@ -1,5 +1,6 @@
 package com.client.clientapi.domain;
 
+import com.client.clientapi.domain.logs.OperationConnectorLogs;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,4 +37,10 @@ public class OperationConnector {
 
     @Column(name = "DATE")
     private LocalDate date;
+
+    @OneToMany(
+            mappedBy = "operationConnectorId",
+            cascade = CascadeType.REMOVE
+    )
+    private List<OperationConnectorLogs> operationConnectorLogs = new ArrayList<>();
 }
