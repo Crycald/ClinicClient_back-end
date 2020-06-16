@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "CLINIC_AUD")
 public class ClinicLogs {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     private Long id;
 
     @ManyToOne

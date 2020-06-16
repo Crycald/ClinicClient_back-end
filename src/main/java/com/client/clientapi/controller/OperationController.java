@@ -19,27 +19,27 @@ public class OperationController {
     }
 
     @GetMapping(value = "/operations")
-    public List<OperationDto> getSpecializations() {
-        return service.getSpecializations();
+    public List<OperationDto> getOperations() {
+        return service.getOperations();
     }
 
     @GetMapping(value = "/operations/{id}")
-    public OperationDto getSpecializationById(@PathVariable Long id) {
-        return service.getSpecializationById(id);
+    public OperationDto getOperationById(@PathVariable Long id) {
+        return service.getOperationById(id);
     }
 
     @PostMapping(value = "/operations")
-    public void createSpecialization(@RequestBody OperationDto operationDto) {
-        service.createSpecialization(operationDto);
+    public void createOperation(@RequestBody OperationDto operationDto) {
+        service.createOperation(operationDto);
     }
 
     @DeleteMapping(value = "/operations/{id}")
-    public void deleteSpecialization(@PathVariable Long id) {
-        service.deleteSpecialization(id);
+    public void deleteOperation(@PathVariable Long id) {
+        service.deleteOperation(id);
     }
 
     @PutMapping(value = "/operations")
-    public OperationDto updateSpecialization(@RequestBody OperationDto operationDto) {
-        return service.updateSpecialization(operationDto);
+    public OperationDto updateOperation(@RequestBody OperationDto operationDto) {
+        return service.updateOperation(operationDto);
     }
 }

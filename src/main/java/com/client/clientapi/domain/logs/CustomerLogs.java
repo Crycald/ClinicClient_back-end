@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -18,7 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "CUSTOMER_AUD")
 public class CustomerLogs {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     @Column(name = "ID")
     private Long id;
 

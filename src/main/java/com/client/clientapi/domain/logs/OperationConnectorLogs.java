@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Table(name = "OPERATION_CONNECTOR_AUD")
 public class OperationConnectorLogs {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     private Long id;
 
     @ManyToOne
