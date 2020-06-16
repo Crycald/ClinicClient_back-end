@@ -34,16 +34,16 @@ public class OperationService {
         this.operationLogsService = operationLogsService;
     }
 
-    public List<OperationDto> getSpecializations() {
+    public List<OperationDto> getOperations() {
         return mapper.list(repository.findAll());
     }
 
-    public OperationDto getSpecializationById(final Long id) {
+    public OperationDto getOperationById(final Long id) {
         Optional<Operation> operations = repository.findById(id);
         return mapper.mapToDto(operations.orElseThrow(() -> new OperationNotFoundException(id)));
     }
 
-    public void createSpecialization(final OperationDto operationDto) {
+    public void createOperation(final OperationDto operationDto) {
         operationDto.setId(null);
         Clinic clinic = clinicRepository.findById(operationDto.getClinic_id()).orElseThrow(() -> new ClinicNotFoundException(operationDto.getClinic_id()));
         Operation operation = mapper.map(operationDto, clinic);
@@ -57,7 +57,7 @@ public class OperationService {
         logger.info("OPERATION CREATED - ID: " + operation.getId());
     }
 
-    public void deleteSpecialization(final Long id) {
+    public void deleteOperation(final Long id) {
         try {
             repository.deleteById(id);
             logger.info("OPERATION DELETED - ID: " + id);
@@ -67,7 +67,7 @@ public class OperationService {
         }
     }
 
-    public OperationDto updateSpecialization(final OperationDto operationDto) {
+    public OperationDto updateOperation(final OperationDto operationDto) {
         Operation operation = repository.findById(operationDto.getId()).orElseThrow(() -> new OperationNotFoundException(operationDto.getId()));
         Clinic clinic = clinicRepository.findById(operationDto.getClinic_id()).orElseThrow(() -> new ClinicNotFoundException(operationDto.getClinic_id()));
 

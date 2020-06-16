@@ -36,7 +36,7 @@ public class OperationControllerTestSuite {
     public void shouldFetchEmptyOperationList() throws Exception {
         List<OperationDto> operationDtoList = new ArrayList<>();
 
-        when(service.getSpecializations()).thenReturn(operationDtoList);
+        when(service.getOperations()).thenReturn(operationDtoList);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/operations").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(200))
@@ -48,7 +48,7 @@ public class OperationControllerTestSuite {
         List<OperationDto> operationDtoList = new ArrayList<>();
         operationDtoList.add(new OperationDto(1L, 1L, TypeOfOperation.AMPUTACJA, new BigDecimal(1000.00)));
 
-        when(service.getSpecializations()).thenReturn(operationDtoList);
+        when(service.getOperations()).thenReturn(operationDtoList);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/operations").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -65,7 +65,7 @@ public class OperationControllerTestSuite {
     public void shouldFetchOperationListById() throws Exception {
         OperationDto operationDto = new OperationDto(1L, 1L, TypeOfOperation.AMPUTACJA, new BigDecimal(1000.00));
 
-        when(service.getSpecializationById(1L)).thenReturn(operationDto);
+        when(service.getOperationById(1L)).thenReturn(operationDto);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/operations/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(200))
@@ -80,7 +80,7 @@ public class OperationControllerTestSuite {
     public void shouldDeleteOperationById() throws Exception {
         OperationDto operationDto = new OperationDto(1L, 1L, TypeOfOperation.AMPUTACJA, new BigDecimal(1000.00));
 
-        when(service.getSpecializationById(1L)).thenReturn(operationDto);
+        when(service.getOperationById(1L)).thenReturn(operationDto);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/v1/operations/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -90,7 +90,7 @@ public class OperationControllerTestSuite {
     public void shouldUpdateOperation() throws Exception {
         OperationDto operationDto = new OperationDto(1L, 1L, TypeOfOperation.AMPUTACJA, new BigDecimal(1000.00));
 
-        when(service.updateSpecialization(ArgumentMatchers.any())).thenReturn(operationDto);
+        when(service.updateOperation(ArgumentMatchers.any())).thenReturn(operationDto);
         Gson gson = new Gson();
         String jsonContent = gson.toJson(operationDto);
 
