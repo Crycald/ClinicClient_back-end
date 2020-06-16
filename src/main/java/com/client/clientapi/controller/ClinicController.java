@@ -29,8 +29,8 @@ public class ClinicController {
     }
 
     @PostMapping(value = "/clinics")
-    public ClinicDto createClinic(@RequestBody ClinicDto clinicDto) {
-        return service.createClinic(clinicDto);
+    public void createClinic(@RequestBody ClinicDto clinicDto) {
+        service.createClinic(clinicDto);
     }
 
     @DeleteMapping(value = "/clinics/{id}")

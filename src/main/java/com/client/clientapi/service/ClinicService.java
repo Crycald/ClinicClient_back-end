@@ -2,9 +2,13 @@ package com.client.clientapi.service;
 
 import com.client.clientapi.domain.Clinic;
 import com.client.clientapi.domain.ClinicDto;
+import com.client.clientapi.domain.logs.ClinicLogs;
 import com.client.clientapi.exception.clinic.ClinicNotFoundException;
 import com.client.clientapi.mapper.ClinicMapper;
 import com.client.clientapi.repository.ClinicRepository;
+import com.client.clientapi.service.logs.ClinicLogsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +19,14 @@ import java.util.Optional;
 public class ClinicService {
     private ClinicRepository repository;
     private ClinicMapper mapper;
+    private ClinicLogsService clinicLogsService;
+    private Logger logger = LoggerFactory.getLogger(ClinicService.class);
 
     @Autowired
-    public ClinicService(ClinicRepository repository, ClinicMapper mapper) {
+    public ClinicService(ClinicRepository repository, ClinicMapper mapper, ClinicLogsService clinicLogsService) {
         this.repository = repository;
         this.mapper = mapper;
+        this.clinicLogsService = clinicLogsService;
     }
 
     public List<ClinicDto> getClinics() {
@@ -31,18 +38,41 @@ public class ClinicService {
         return mapper.mapToDto(clinic.orElseThrow(() -> new ClinicNotFoundException(id)));
     }
 
-    public ClinicDto createClinic(final ClinicDto clinicDto) {
+    public void createClinic(final ClinicDto clinicDto) {
         clinicDto.setId(null);
         Clinic clinic = mapper.map(clinicDto);
-        return mapper.mapToDto(repository.save(clinic));
+        mapper.mapToDto(repository.save(clinic));
+
+        ClinicLogs clinicLogs = new ClinicLogs();
+        clinicLogs.setClinicId(clinic);
+        clinicLogs.setIpAddress("129.138.1.35");
+        clinicLogs.setOperation("CREATE");
+        clinicLogsService.createClinicLogs(clinicLogs);
+
+        logger.info("CLINIC CREATED - ID: " + clinic.getId());
     }
 
     public void deleteClinic(final Long id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+            logger.info("CLINIC DELETED - ID: " + id);
+        } catch (Exception e) {
+            logger.warn("NOT FOUND CLINIC WITH ID: " + id);
+            throw new ClinicNotFoundException(id);
+        }
     }
 
     public ClinicDto updateClinic(final ClinicDto clinicDto) {
-        repository.findById(clinicDto.getId()).orElseThrow(() -> new ClinicNotFoundException(clinicDto.getId()));
+        Clinic clinic = repository.findById(clinicDto.getId()).orElseThrow(() -> new ClinicNotFoundException(clinicDto.getId()));
+
+        ClinicLogs clinicLogs = new ClinicLogs();
+        clinicLogs.setClinicId(clinic);
+        clinicLogs.setIpAddress("129.138.1.35");
+        clinicLogs.setOperation("UPDATE");
+        clinicLogsService.createClinicLogs(clinicLogs);
+
+        logger.info("CLINIC UPDATED - ID: " + clinic.getId());
+
         return mapper.mapToDto(repository.save(mapper.map(clinicDto)));
     }
 }

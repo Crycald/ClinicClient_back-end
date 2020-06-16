@@ -1,6 +1,7 @@
 package com.client.clientapi.domain;
 
 import com.client.clientapi.domain.enums.TypeOfAnimal;
+import com.client.clientapi.domain.logs.ClinicLogs;
 import lombok.*;
 
 import javax.persistence.*;
@@ -56,4 +57,10 @@ public class Clinic {
             fetch = FetchType.LAZY
     )
     private List<OperationConnector> listOfOperations = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "clinicId",
+            cascade = CascadeType.REMOVE
+    )
+    private List<ClinicLogs> clinicLogs = new ArrayList<>();
 }
