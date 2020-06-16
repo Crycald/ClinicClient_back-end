@@ -29,8 +29,8 @@ public class CustomerController {
     }
 
     @PostMapping(value = "/customers")
-    public CustomerDto createCustomer(@RequestBody CustomerDto customerDto) {
-        return service.createCustomer(customerDto);
+    public void createCustomer(@RequestBody CustomerDto customerDto) {
+        service.createCustomer(customerDto);
     }
 
     @DeleteMapping(value = "/customers/{id}")
