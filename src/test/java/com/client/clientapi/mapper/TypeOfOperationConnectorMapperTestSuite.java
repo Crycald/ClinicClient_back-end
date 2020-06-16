@@ -78,7 +78,12 @@ public class TypeOfOperationConnectorMapperTestSuite {
         operation1.setOperations(TypeOfOperation.AMPUTACJA);
         operation1.setCost(new BigDecimal(10000.00));
 
-        OperationConnector operationConnector = new OperationConnector(1L, clinic1, customer1, operation1, LocalDate.of(2020,10,10));
+        OperationConnector operationConnector = new OperationConnector();
+        operationConnector.setId(1L);
+        operationConnector.setClinicId(clinic1);
+        operationConnector.setCustomerId(customer1);
+        operationConnector.setOperationId(operation1);
+
         OperationConnectorDto operationConnectorDto = mapper.mapToDto(operationConnector);
 
         Assert.assertEquals(operationConnectorDto.getId(), operationConnector.getId());
@@ -114,10 +119,14 @@ public class TypeOfOperationConnectorMapperTestSuite {
         operation1.setOperations(TypeOfOperation.AMPUTACJA);
         operation1.setCost(new BigDecimal(10000.00));
 
-        OperationConnector operationConnector1 = new OperationConnector(1L, clinic1, customer1, operation1, LocalDate.of(2020,10,10));
+        OperationConnector operationConnector = new OperationConnector();
+        operationConnector.setId(1L);
+        operationConnector.setClinicId(clinic1);
+        operationConnector.setCustomerId(customer1);
+        operationConnector.setOperationId(operation1);
 
         List<OperationConnector> connectorList = new ArrayList<>();
-        connectorList.add(operationConnector1);
+        connectorList.add(operationConnector);
 
         List<OperationConnectorDto> operationConnectorDtoList = mapper.list(connectorList);
 
