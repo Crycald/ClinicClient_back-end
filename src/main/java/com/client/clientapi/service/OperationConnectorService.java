@@ -62,7 +62,6 @@ public class OperationConnectorService {
         operationConnectorLogs.setClinicId(clinic);
         operationConnectorLogs.setCustomerId(customer);
         operationConnectorLogs.setOperationId(operation);
-        operationConnectorLogs.setIpAddress("123.323.11.5");
         operationConnectorLogs.setOperation("CREATE");
         operationConnectorLogsService.createOperationConnectorLogs(operationConnectorLogs);
 
@@ -91,7 +90,6 @@ public class OperationConnectorService {
         operationConnectorLogs.setClinicId(clinic);
         operationConnectorLogs.setCustomerId(customer);
         operationConnectorLogs.setOperationId(operation);
-        operationConnectorLogs.setIpAddress("123.323.11.5");
         operationConnectorLogs.setOperation("UPDATE");
         operationConnectorLogsService.createOperationConnectorLogs(operationConnectorLogs);
 
