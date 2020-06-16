@@ -1,6 +1,7 @@
 package com.client.clientapi.domain;
 
 import com.client.clientapi.domain.logs.CustomerLogs;
+import com.client.clientapi.domain.logs.OperationConnectorLogs;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,4 +51,10 @@ public class Customer {
             cascade = CascadeType.REMOVE
     )
     private List<CustomerLogs> customerLogs = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "customerId",
+            cascade = CascadeType.REMOVE
+    )
+    private List<OperationConnectorLogs> operationConnectorLogs = new ArrayList<>();
 }

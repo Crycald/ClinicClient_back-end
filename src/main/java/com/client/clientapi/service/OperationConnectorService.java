@@ -1,6 +1,7 @@
 package com.client.clientapi.service;
 
 import com.client.clientapi.domain.*;
+import com.client.clientapi.domain.logs.OperationConnectorLogs;
 import com.client.clientapi.exception.clinic.ClinicNotFoundException;
 import com.client.clientapi.exception.connector.OperationConnectorNotFoundException;
 import com.client.clientapi.exception.customer.CustomerNotFoundException;
@@ -10,6 +11,9 @@ import com.client.clientapi.repository.OperationRepository;
 import com.client.clientapi.repository.ClinicRepository;
 import com.client.clientapi.repository.CustomerRepository;
 import com.client.clientapi.repository.OperationConnectorRepository;
+import com.client.clientapi.service.logs.OperationConnectorLogsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,14 +27,17 @@ public class OperationConnectorService {
     private ClinicRepository clinicRepository;
     private CustomerRepository customerRepository;
     private OperationRepository operationRepository;
+    private OperationConnectorLogsService operationConnectorLogsService;
+    private Logger logger = LoggerFactory.getLogger(OperationConnectorService.class);
 
     @Autowired
-    public OperationConnectorService(OperationConnectorMapper mapper, OperationConnectorRepository repository, ClinicRepository clinicRepository, CustomerRepository customerRepository, OperationRepository operationRepository) {
+    public OperationConnectorService(OperationConnectorMapper mapper, OperationConnectorRepository repository, ClinicRepository clinicRepository, CustomerRepository customerRepository, OperationRepository operationRepository, OperationConnectorLogsService operationConnectorLogsService) {
         this.mapper = mapper;
         this.repository = repository;
         this.clinicRepository = clinicRepository;
         this.customerRepository = customerRepository;
         this.operationRepository = operationRepository;
+        this.operationConnectorLogsService = operationConnectorLogsService;
     }
 
     public List<OperationConnectorDto> getOperationConnectors() {
@@ -42,24 +49,54 @@ public class OperationConnectorService {
         return mapper.mapToDto(operationConnector.orElseThrow(() -> new OperationConnectorNotFoundException(id)));
     }
 
-    public OperationConnectorDto createOperationConnector(final OperationConnectorDto operationConnectorDto) {
+    public void createOperationConnector(final OperationConnectorDto operationConnectorDto) {
         operationConnectorDto.setId(null);
         Clinic clinic = clinicRepository.findById(operationConnectorDto.getClinicId()).orElseThrow(() -> new ClinicNotFoundException(operationConnectorDto.getClinicId()));
         Customer customer = customerRepository.findById(operationConnectorDto.getCustomerId()).orElseThrow(() -> new CustomerNotFoundException(operationConnectorDto.getCustomerId()));
         Operation operation = operationRepository.findById(operationConnectorDto.getOperationActId()).orElseThrow(() -> new OperationNotFoundException(operationConnectorDto.getOperationActId()));
         OperationConnector operationConnector = mapper.map(operationConnectorDto, clinic, customer, operation);
-        return mapper.mapToDto(repository.save(operationConnector));
+        mapper.mapToDto(repository.save(operationConnector));
+
+        OperationConnectorLogs operationConnectorLogs = new OperationConnectorLogs();
+        operationConnectorLogs.setOperationConnectorId(operationConnector);
+        operationConnectorLogs.setClinicId(clinic);
+        operationConnectorLogs.setCustomerId(customer);
+        operationConnectorLogs.setOperationId(operation);
+        operationConnectorLogs.setIpAddress("123.323.11.5");
+        operationConnectorLogs.setOperation("CREATE");
+        operationConnectorLogsService.createOperationConnectorLogs(operationConnectorLogs);
+
+        logger.info("OPERATION CONNECTOR CREATED - ID: " + operationConnector.getId());
     }
 
     public void deleteOperationConnector(final Long id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+            logger.info("OPERATION CONNECTOR DELETED - ID: " + id);
+        } catch (Exception e) {
+            logger.warn("NOT FOUND OPERATION CONNECTOR WITH ID: " + id);
+            throw new OperationConnectorNotFoundException(id);
+        }
+
     }
 
     public OperationConnectorDto updateOperationConnector(final OperationConnectorDto operationConnectorDto) {
-        repository.findById(operationConnectorDto.getId()).orElseThrow(() -> new OperationConnectorNotFoundException(operationConnectorDto.getId()));
+        OperationConnector operationConnector = repository.findById(operationConnectorDto.getId()).orElseThrow(() -> new OperationConnectorNotFoundException(operationConnectorDto.getId()));
         Clinic clinic = clinicRepository.findById(operationConnectorDto.getClinicId()).orElseThrow(() -> new ClinicNotFoundException(operationConnectorDto.getClinicId()));
         Customer customer = customerRepository.findById(operationConnectorDto.getCustomerId()).orElseThrow(() -> new CustomerNotFoundException(operationConnectorDto.getCustomerId()));
         Operation operation = operationRepository.findById(operationConnectorDto.getOperationActId()).orElseThrow(() -> new OperationNotFoundException(operationConnectorDto.getOperationActId()));
+
+        OperationConnectorLogs operationConnectorLogs = new OperationConnectorLogs();
+        operationConnectorLogs.setOperationConnectorId(operationConnector);
+        operationConnectorLogs.setClinicId(clinic);
+        operationConnectorLogs.setCustomerId(customer);
+        operationConnectorLogs.setOperationId(operation);
+        operationConnectorLogs.setIpAddress("123.323.11.5");
+        operationConnectorLogs.setOperation("UPDATE");
+        operationConnectorLogsService.createOperationConnectorLogs(operationConnectorLogs);
+
+        logger.info("OPERATION CONNECTOR UPDATED - ID: " +operationConnector.getId());
+
         return mapper.mapToDto(repository.save(mapper.map(operationConnectorDto, clinic, customer, operation)));
     }
 }
