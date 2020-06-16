@@ -51,7 +51,6 @@ public class OperationService {
 
         OperationLogs operationLogs = new OperationLogs();
         operationLogs.setOperationId(operation);
-        operationLogs.setIpAddress("123.332.5.1");
         operationLogs.setOperation("CREATE");
         operationLogsService.createOperationLogs(operationLogs);
 
@@ -74,7 +73,6 @@ public class OperationService {
 
         OperationLogs operationLogs = new OperationLogs();
         operationLogs.setOperationId(operation);
-        operationLogs.setIpAddress("123.332.5.1");
         operationLogs.setOperation("UPDATE");
         operationLogsService.createOperationLogs(operationLogs);
 

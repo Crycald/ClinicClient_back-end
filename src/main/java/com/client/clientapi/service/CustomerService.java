@@ -45,7 +45,6 @@ public class CustomerService {
 
         CustomerLogs customerLogs = new CustomerLogs();
         customerLogs.setCustomerId(customer);
-        customerLogs.setIpAddress("192.168.1.1");
         customerLogs.setOperation("CREATE");
         customerLogsService.createCustomerLogs(customerLogs);
 
@@ -67,7 +66,6 @@ public class CustomerService {
 
         CustomerLogs customerLogs = new CustomerLogs();
         customerLogs.setCustomerId(customer);
-        customerLogs.setIpAddress("192.168.1.1");
         customerLogs.setOperation("UPDATE");
         customerLogsService.createCustomerLogs(customerLogs);
 

@@ -45,7 +45,6 @@ public class ClinicService {
 
         ClinicLogs clinicLogs = new ClinicLogs();
         clinicLogs.setClinicId(clinic);
-        clinicLogs.setIpAddress("129.138.1.35");
         clinicLogs.setOperation("CREATE");
         clinicLogsService.createClinicLogs(clinicLogs);
 
@@ -67,7 +66,6 @@ public class ClinicService {
 
         ClinicLogs clinicLogs = new ClinicLogs();
         clinicLogs.setClinicId(clinic);
-        clinicLogs.setIpAddress("129.138.1.35");
         clinicLogs.setOperation("UPDATE");
         clinicLogsService.createClinicLogs(clinicLogs);
 

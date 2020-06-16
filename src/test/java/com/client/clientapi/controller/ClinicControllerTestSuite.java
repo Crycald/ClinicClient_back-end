@@ -1,5 +1,6 @@
 package com.client.clientapi.controller;
 
+import com.client.clientapi.client.IpifyClient;
 import com.client.clientapi.domain.Clinic;
 import com.client.clientapi.domain.ClinicDto;
 import com.client.clientapi.domain.enums.TypeOfAnimal;
