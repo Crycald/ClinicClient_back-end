@@ -29,8 +29,8 @@ public class OperationController {
     }
 
     @PostMapping(value = "/operations")
-    public OperationDto createSpecialization(@RequestBody OperationDto operationDto) {
-        return service.createSpecialization(operationDto);
+    public void createSpecialization(@RequestBody OperationDto operationDto) {
+        service.createSpecialization(operationDto);
     }
 
     @DeleteMapping(value = "/operations/{id}")
