@@ -46,6 +46,10 @@ public class CustomerService {
         CustomerLogs customerLogs = new CustomerLogs();
         customerLogs.setCustomerId(customer);
         customerLogs.setOperation("CREATE");
+        customerLogs.setLastnameNew(customer.getLastname());
+        customerLogs.setPasswordNew(customer.getPassword());
+        customerLogs.setEmailNew(customer.getEmail());
+        customerLogs.setPhoneNumberNew(customer.getPhoneNumber());
         customerLogsService.createCustomerLogs(customerLogs);
 
         logger.info("CUSTOMER CREATED - ID: " + customer.getId());
@@ -67,6 +71,16 @@ public class CustomerService {
         CustomerLogs customerLogs = new CustomerLogs();
         customerLogs.setCustomerId(customer);
         customerLogs.setOperation("UPDATE");
+
+        customerLogs.setLastnameOld(customer.getLastname());
+        customerLogs.setPasswordOld(customer.getPassword());
+        customerLogs.setEmailOld(customer.getEmail());
+        customerLogs.setPhoneNumberOld(customer.getPhoneNumber());
+
+        customerLogs.setLastnameNew(customerDto.getLastname());
+        customerLogs.setPasswordNew(customerDto.getPassword());
+        customerLogs.setEmailNew(customerDto.getEmail());
+        customerLogs.setPhoneNumberNew(customerDto.getPhoneNumber());
         customerLogsService.createCustomerLogs(customerLogs);
 
         logger.info("CUSTOMER UPDATED - ID: " + customer.getId());
