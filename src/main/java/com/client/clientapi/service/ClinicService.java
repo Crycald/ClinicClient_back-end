@@ -46,6 +46,11 @@ public class ClinicService {
         ClinicLogs clinicLogs = new ClinicLogs();
         clinicLogs.setClinicId(clinic);
         clinicLogs.setOperation("CREATE");
+        clinicLogs.setAddressNew(clinic.getAddress());
+        clinicLogs.setNipNew(clinic.getNip());
+        clinicLogs.setPhoneNumberNew(clinic.getPhoneNumber());
+        clinicLogs.setMailNew(clinic.getMail());
+        clinicLogs.setPasswordNew(clinic.getPassword());
         clinicLogsService.createClinicLogs(clinicLogs);
 
         logger.info("CLINIC CREATED - ID: " + clinic.getId());
@@ -67,6 +72,18 @@ public class ClinicService {
         ClinicLogs clinicLogs = new ClinicLogs();
         clinicLogs.setClinicId(clinic);
         clinicLogs.setOperation("UPDATE");
+
+        clinicLogs.setAddressOld(clinic.getAddress());
+        clinicLogs.setNipOld(clinic.getNip());
+        clinicLogs.setPhoneNumberOld(clinic.getPhoneNumber());
+        clinicLogs.setMailOld(clinic.getMail());
+        clinicLogs.setPasswordOld(clinic.getPassword());
+
+        clinicLogs.setAddressNew(clinicDto.getAddress());
+        clinicLogs.setNipNew(clinicDto.getNip());
+        clinicLogs.setPhoneNumberNew(clinicDto.getPhoneNumber());
+        clinicLogs.setMailNew(clinicDto.getMail());
+        clinicLogs.setPasswordNew(clinicDto.getPassword());
         clinicLogsService.createClinicLogs(clinicLogs);
 
         logger.info("CLINIC UPDATED - ID: " + clinic.getId());

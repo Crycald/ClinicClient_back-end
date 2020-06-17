@@ -33,4 +33,28 @@ public class CustomerLogs {
 
     @Column(name = "DATE")
     private final LocalDateTime date = LocalDateTime.now();
+
+    @Column(name = "LASTNAME_OLD")
+    private String lastnameOld;
+
+    @Column(name = "PWD_OLD")
+    private String passwordOld;
+
+    @Column(name = "EMAIL_OLD")
+    private String emailOld;
+
+    @Column(name = "PHONE_NUMBER_OLD")
+    private String phoneNumberOld;
+
+    @Column(name = "LASTNAME_NEW")
+    private String lastnameNew;
+
+    @Column(name = "PWD_NEW")
+    private String passwordNew;
+
+    @Column(name = "EMAIL_NEW")
+    private String emailNew;
+
+    @Column(name = "PHONE_NUMBER_NEW")
+    private String phoneNumberNew;
 }
