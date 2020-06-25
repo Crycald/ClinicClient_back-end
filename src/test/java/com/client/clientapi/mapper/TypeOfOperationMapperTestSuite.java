@@ -31,7 +31,7 @@ public class TypeOfOperationMapperTestSuite {
         Operation operation = mapper.map(operationDto, clinic1);
 
         Assert.assertEquals(operationDto.getId(), operation.getId());
-        Assert.assertEquals(operationDto.getClinic_id(), operation.getClinic_id().getId());
+        Assert.assertEquals(operationDto.getClinicId(), operation.getClinicId().getId());
         Assert.assertEquals(operationDto.getOperations(), operation.getOperations());
         Assert.assertEquals(operationDto.getCost(), operation.getCost());
     }
@@ -50,13 +50,13 @@ public class TypeOfOperationMapperTestSuite {
 
         Operation operation = new Operation();
         operation.setId(1L);
-        operation.setClinic_id(clinic1);
+        operation.setClinicId(clinic1);
         operation.setOperations(TypeOfOperation.AMPUTACJA);
         operation.setCost(new BigDecimal(10000.00));
         OperationDto operationDto = mapper.mapToDto(operation);
 
         Assert.assertEquals(operationDto.getId(), operation.getId());
-        Assert.assertEquals(operationDto.getClinic_id(), operation.getClinic_id().getId());
+        Assert.assertEquals(operationDto.getClinicId(), operation.getClinicId().getId());
         Assert.assertEquals(operationDto.getOperations(), operation.getOperations());
         Assert.assertEquals(operationDto.getCost(), operation.getCost());
     }
@@ -76,7 +76,7 @@ public class TypeOfOperationMapperTestSuite {
         Operation operation1 = new Operation();
 
         operation1.setId(1L);
-        operation1.setClinic_id(clinic1);
+        operation1.setClinicId(clinic1);
         operation1.setOperations(TypeOfOperation.AMPUTACJA);
         operation1.setCost(new BigDecimal(10000.00));
         OperationDto operationDto = mapper.mapToDto(operation1);

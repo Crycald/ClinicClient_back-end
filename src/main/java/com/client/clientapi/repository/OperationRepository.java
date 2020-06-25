@@ -23,4 +23,6 @@ public interface OperationRepository extends CrudRepository<Operation, Long> {
 
     @Override
     void deleteById(Long id);
+
+    List<Operation> findAllByClinicId_Id(Long id);
 }

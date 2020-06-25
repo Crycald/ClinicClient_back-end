@@ -2,6 +2,7 @@ package com.client.clientapi.service;
 
 import com.client.clientapi.domain.Clinic;
 import com.client.clientapi.domain.ClinicDto;
+import com.client.clientapi.domain.enums.TypeOfAnimal;
 import com.client.clientapi.domain.logs.ClinicLogs;
 import com.client.clientapi.exception.clinic.ClinicNotFoundException;
 import com.client.clientapi.mapper.ClinicMapper;
@@ -38,7 +39,7 @@ public class ClinicService {
         return mapper.mapToDto(clinic.orElseThrow(() -> new ClinicNotFoundException(id)));
     }
 
-    public void createClinic(final ClinicDto clinicDto) {
+    public ClinicDto createClinic(final ClinicDto clinicDto) {
         clinicDto.setId(null);
         Clinic clinic = mapper.map(clinicDto);
         mapper.mapToDto(repository.save(clinic));
@@ -54,6 +55,8 @@ public class ClinicService {
         clinicLogsService.createClinicLogs(clinicLogs);
 
         logger.info("CLINIC CREATED - ID: " + clinic.getId());
+
+        return mapper.mapToDto(clinic);
     }
 
     public void deleteClinic(final Long id) {
@@ -89,5 +92,34 @@ public class ClinicService {
         logger.info("CLINIC UPDATED - ID: " + clinic.getId());
 
         return mapper.mapToDto(repository.save(mapper.map(clinicDto)));
+    }
+
+    public Long validateClinicAndReturnId(final String login, final String password) {
+        Optional<Clinic> clinic = repository.findByLoginAndPassword(login, password);
+
+        if (clinic.isPresent()) {
+            logger.info("CLINIC HAS BEEN FOUND");
+            System.out.println("Clinic ID: " + clinic.get().getId());
+            return clinic.get().getId();
+        } else {
+            logger.warn("CLINIC NOT FOUND");
+            return null;
+        }
+    }
+
+    public List<ClinicDto> getClinicsByTypeOfAnimal(TypeOfAnimal type) {
+        return mapper.list(repository.findAllByTypeOfAnimal(type));
+    }
+
+    public Boolean validateClinicLogin(final String login) {
+        Optional<Clinic> clinic = repository.findByLogin(login);
+
+        if (clinic.isPresent()) {
+            logger.info("CLINIC WITH GIVEN LOGIN EXISTS");
+            return true;
+        } else {
+            logger.warn("CLINIC NOT FOUND");
+            return false;
+        }
     }
 }

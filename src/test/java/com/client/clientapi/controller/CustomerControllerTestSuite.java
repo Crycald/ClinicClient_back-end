@@ -44,7 +44,7 @@ public class CustomerControllerTestSuite {
     @Test
     public void shouldFetchCustomerList() throws Exception {
         List<CustomerDto> customer = new ArrayList<>();
-        customer.add(new CustomerDto(1L, "first", "last", "pwd", "@@@@", "123-123-123"));
+        customer.add(new CustomerDto(1L, "first", "last","login" , "pwd", "@@@@", "123-123-123"));
 
         when(service.getCustomers()).thenReturn(customer);
 
@@ -63,7 +63,7 @@ public class CustomerControllerTestSuite {
 
     @Test
     public void shouldFetchCustomerById() throws Exception {
-        CustomerDto customerDto = new CustomerDto(1L, "first", "last", "pwd", "@@@@", "123-123-123");
+        CustomerDto customerDto = new CustomerDto(1L, "first", "last", "login" ,"pwd", "@@@@", "123-123-123");
 
         when(service.getCustomerById(1L)).thenReturn(customerDto);
 
@@ -79,7 +79,7 @@ public class CustomerControllerTestSuite {
 
     @Test
     public void shouldDeleteCustomerById() throws Exception {
-        CustomerDto customerDto = new CustomerDto(1L, "first", "last", "pwd", "@@@@", "123-123-123");
+        CustomerDto customerDto = new CustomerDto(1L, "first", "last","login" , "pwd", "@@@@", "123-123-123");
 
         when(service.getCustomerById(1L)).thenReturn(customerDto);
 
@@ -89,7 +89,7 @@ public class CustomerControllerTestSuite {
 
     @Test
     public void shouldUpdateCustomer() throws Exception {
-        CustomerDto customerDto = new CustomerDto(1L, "first", "last", "pwd", "@@@@", "123-123-123");
+        CustomerDto customerDto = new CustomerDto(1L, "first", "last","login" , "pwd", "@@@@", "123-123-123");
 
         when(service.updateCustomer(ArgumentMatchers.any())).thenReturn(customerDto);
         Gson gson = new Gson();

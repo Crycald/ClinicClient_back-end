@@ -42,7 +42,13 @@ public class OperationConnectorControllerTestSuite {
     @Test
     public void shouldFetchOperationConnectorList() throws Exception {
         List<OperationConnectorDto> operationConnectorDtoList = new ArrayList<>();
-        operationConnectorDtoList.add(new OperationConnectorDto(1L, 1L, 1L, 1L));
+        OperationConnectorDto operationDto = new OperationConnectorDto();
+        operationDto.setId(1L);
+        operationDto.setClinicId(1L);
+        operationDto.setOperationActId(1L);
+        operationDto.setCustomerId(1L);
+
+        operationConnectorDtoList.add(operationDto);
 
         when(service.getOperationConnectors()).thenReturn(operationConnectorDtoList);
 
@@ -57,7 +63,11 @@ public class OperationConnectorControllerTestSuite {
 
     @Test
     public void shouldFetchOperationConnectorListById() throws Exception {
-        OperationConnectorDto operationDto = new OperationConnectorDto(1L, 1L, 1L, 1L);
+        OperationConnectorDto operationDto = new OperationConnectorDto();
+        operationDto.setId(1L);
+        operationDto.setClinicId(1L);
+        operationDto.setOperationActId(1L);
+        operationDto.setCustomerId(1L);
 
         when(service.getOperationConnectorById(1L)).thenReturn(operationDto);
 
@@ -72,7 +82,11 @@ public class OperationConnectorControllerTestSuite {
 
     @Test
     public void shouldDeleteOperationConnectorById() throws Exception {
-        OperationConnectorDto operationDto = new OperationConnectorDto(1L, 1L, 1L, 1L);
+        OperationConnectorDto operationDto = new OperationConnectorDto();
+        operationDto.setId(1L);
+        operationDto.setClinicId(1L);
+        operationDto.setOperationActId(1L);
+        operationDto.setCustomerId(1L);
 
         when(service.getOperationConnectorById(1L)).thenReturn(operationDto);
 

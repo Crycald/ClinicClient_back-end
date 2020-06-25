@@ -43,9 +43,9 @@ public class OperationService {
         return mapper.mapToDto(operations.orElseThrow(() -> new OperationNotFoundException(id)));
     }
 
-    public void createOperation(final OperationDto operationDto) {
+    public OperationDto createOperation(final OperationDto operationDto) {
         operationDto.setId(null);
-        Clinic clinic = clinicRepository.findById(operationDto.getClinic_id()).orElseThrow(() -> new ClinicNotFoundException(operationDto.getClinic_id()));
+        Clinic clinic = clinicRepository.findById(operationDto.getClinicId()).orElseThrow(() -> new ClinicNotFoundException(operationDto.getClinicId()));
         Operation operation = mapper.map(operationDto, clinic);
         mapper.mapToDto(repository.save(operation));
 
@@ -55,6 +55,8 @@ public class OperationService {
         operationLogsService.createOperationLogs(operationLogs);
 
         logger.info("OPERATION CREATED - ID: " + operation.getId());
+
+        return mapper.mapToDto(operation);
     }
 
     public void deleteOperation(final Long id) {
@@ -69,7 +71,7 @@ public class OperationService {
 
     public OperationDto updateOperation(final OperationDto operationDto) {
         Operation operation = repository.findById(operationDto.getId()).orElseThrow(() -> new OperationNotFoundException(operationDto.getId()));
-        Clinic clinic = clinicRepository.findById(operationDto.getClinic_id()).orElseThrow(() -> new ClinicNotFoundException(operationDto.getClinic_id()));
+        Clinic clinic = clinicRepository.findById(operationDto.getClinicId()).orElseThrow(() -> new ClinicNotFoundException(operationDto.getClinicId()));
 
         OperationLogs operationLogs = new OperationLogs();
         operationLogs.setOperationId(operation);
@@ -79,5 +81,9 @@ public class OperationService {
         logger.info("OPERATION UPDATED - ID: " + operation.getId());
 
         return mapper.mapToDto(repository.save(mapper.map(operationDto, clinic)));
+    }
+
+    public List<OperationDto> getOperationsByClinicId(Long id) {
+        return mapper.list(repository.findAllByClinicId_Id(id));
     }
 }

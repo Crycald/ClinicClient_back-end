@@ -16,6 +16,7 @@ public class ClinicMapper {
                 .address(clinicDto.getAddress())
                 .nip(clinicDto.getNip())
                 .typeOfAnimal(clinicDto.getTypeOfAnimal())
+                .login(clinicDto.getLogin())
                 .password(clinicDto.getPassword())
                 .phoneNumber(clinicDto.getPhoneNumber())
                 .mail(clinicDto.getMail())
@@ -31,6 +32,7 @@ public class ClinicMapper {
                 clinic.getNip(),
                 clinic.getPhoneNumber(),
                 clinic.getMail(),
+                clinic.getLogin(),
                 clinic.getPassword());
     }
 

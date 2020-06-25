@@ -24,7 +24,7 @@ public class Operation {
 
     @ManyToOne
     @JoinColumn(name = "CLINIC_ID")
-    private Clinic clinic_id;
+    private Clinic clinicId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "OPERATIONS", nullable = false)

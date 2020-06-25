@@ -7,6 +7,7 @@ import com.client.clientapi.domain.enums.TypeOfAnimal;
 import com.client.clientapi.service.ClinicService;
 import com.google.gson.Gson;
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -20,8 +21,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -47,7 +50,7 @@ public class ClinicControllerTestSuite {
     @Test
     public void shouldFetchClinicList() throws Exception {
         List<ClinicDto> clinicDtoList = new ArrayList<>();
-        clinicDtoList.add(new ClinicDto(1L, "name", TypeOfAnimal.FRETKA, "address", 12312313L, "123-123-123", "@@@@", "pwd"));
+        clinicDtoList.add(new ClinicDto(1L, "name", TypeOfAnimal.FRETKA, "address", 12312313L, "123-123-123", "@@@@", "login" ,"pwd"));
 
         when(service.getClinics()).thenReturn(clinicDtoList);
 
@@ -66,7 +69,7 @@ public class ClinicControllerTestSuite {
 
     @Test
     public void shouldFetchClinicById() throws Exception {
-        ClinicDto clinicDto = new ClinicDto(1L, "name", TypeOfAnimal.FRETKA, "address", 12312313L, "123-123-123", "@@@@", "pwd");
+        ClinicDto clinicDto = new ClinicDto(1L, "name", TypeOfAnimal.FRETKA, "address", 12312313L, "123-123-123", "@@@@", "login" ,"pwd");
         Clinic clinic = new Clinic();
         clinic.setId(1L);
         clinic.setName("name");
@@ -94,7 +97,7 @@ public class ClinicControllerTestSuite {
 
     @Test
     public void shouldDeleteClinicById() throws Exception {
-        ClinicDto clinicDto = new ClinicDto(1L, "name", TypeOfAnimal.FRETKA, "address", 12312313L, "123-123-123", "@@@@", "pwd");
+        ClinicDto clinicDto = new ClinicDto(1L, "name", TypeOfAnimal.FRETKA, "address", 12312313L, "123-123-123", "@@@@", "login" ,"pwd");
 
         when(service.getClinicById(1L)).thenReturn(clinicDto);
 
@@ -104,7 +107,7 @@ public class ClinicControllerTestSuite {
 
     @Test
     public void shouldUpdateClinic() throws Exception {
-        ClinicDto clinicDto = new ClinicDto(1L, "name", TypeOfAnimal.FRETKA, "address", 12312313L, "123-123-123", "@@@@", "pwd");
+        ClinicDto clinicDto = new ClinicDto(1L, "name", TypeOfAnimal.FRETKA, "address", 12312313L, "123-123-123", "@@@@", "login" , "pwd");
 
         when(service.updateClinic(ArgumentMatchers.any())).thenReturn(clinicDto);
         Gson gson = new Gson();

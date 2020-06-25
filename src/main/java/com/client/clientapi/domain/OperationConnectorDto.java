@@ -14,7 +14,14 @@ import java.time.LocalDate;
 public class OperationConnectorDto {
     private Long id;
     private Long clinicId;
+    private String clinicName;
+    private String clinicAddress;
     private Long customerId;
+    private String customerFirstName;
+    private String customerLastName;
+    private String customerPhoneNumber;
     private Long operationActId;
-    private final LocalDate date = LocalDate.now();
+    private String operationName;
+    private Long operationCost;
+    private LocalDate date;
 }

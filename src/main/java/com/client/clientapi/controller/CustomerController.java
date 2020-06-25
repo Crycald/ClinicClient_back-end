@@ -42,4 +42,14 @@ public class CustomerController {
     public CustomerDto updateCustomer(@RequestBody CustomerDto customerDto) {
         return service.updateCustomer(customerDto);
     }
+
+    @GetMapping(value = "/customers/validate/{login}&{password}")
+    public Long validateUserAndReturnId(@PathVariable String login, @PathVariable String password) {
+        return service.validateCustomerAndReturnId(login, password);
+    }
+
+    @GetMapping(value = "/customers/validateLogin/{login}")
+    public Boolean validateCustomerLogin(@PathVariable String login) {
+        return service.validateCustomerLogin(login);
+    }
 }

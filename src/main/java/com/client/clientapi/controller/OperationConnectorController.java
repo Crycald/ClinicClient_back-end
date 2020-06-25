@@ -42,4 +42,14 @@ public class OperationConnectorController {
     public OperationConnectorDto updateList(@RequestBody OperationConnectorDto operationConnectorDto) {
         return service.updateOperationConnector(operationConnectorDto);
     }
+
+    @GetMapping(value = "/operationLists/customerId/{id}")
+    public List<OperationConnectorDto> getListsByCustomerId(@PathVariable Long id) {
+        return service.getListsByCustomerId(id);
+    }
+
+    @GetMapping(value = "/operationLists/clinicId/{id}")
+    public List<OperationConnectorDto> getListsByClinicId(@PathVariable Long id) {
+        return service.getListsByClinicId(id);
+    }
 }

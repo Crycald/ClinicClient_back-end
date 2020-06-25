@@ -23,4 +23,8 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
     @Override
     void deleteById(Long id);
+
+    Optional<Customer> findByLoginAndPassword(String login, String password);
+
+    Optional<Customer> findByLogin(String login);
 }
