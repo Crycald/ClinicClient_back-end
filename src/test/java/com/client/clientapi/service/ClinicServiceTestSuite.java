@@ -3,6 +3,7 @@ package com.client.clientapi.service;
 import com.client.clientapi.domain.ClinicDto;
 import com.client.clientapi.domain.enums.TypeOfAnimal;
 import com.client.clientapi.exception.clinic.ClinicNotFoundException;
+import com.client.clientapi.scheduler.DbCleaner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
