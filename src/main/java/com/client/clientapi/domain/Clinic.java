@@ -40,12 +40,15 @@ public class Clinic {
     @Column(name = "EMAIL", nullable = false)
     private String mail;
 
+    @Column(name = "LOGIN", nullable = false)
+    private String login;
+
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
     @OneToMany(
             targetEntity = Operation.class,
-            mappedBy = "clinic_id",
+            mappedBy = "clinicId",
             cascade = CascadeType.REMOVE,
             fetch = FetchType.LAZY
     )

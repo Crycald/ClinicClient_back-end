@@ -16,5 +16,6 @@ public class ClinicDto {
     private Long nip;
     private String phoneNumber;
     private String mail;
+    private String login;
     private String password;
 }

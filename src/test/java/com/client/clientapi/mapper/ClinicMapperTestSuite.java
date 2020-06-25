@@ -14,7 +14,7 @@ public class ClinicMapperTestSuite {
 
     @Test
     public void testMap() {
-        ClinicDto clinicDto = new ClinicDto(1L, "comp_name", TypeOfAnimal.FRETKA, "Address", 132352553L, "123-123-123", "mail@mail.com", "pwd123");
+        ClinicDto clinicDto = new ClinicDto(1L, "comp_name", TypeOfAnimal.FRETKA, "Address", 132352553L, "123-123-123", "mail@mail.com","login" , "pwd123");
         Clinic clinic = mapper.map(clinicDto);
 
         Assert.assertEquals(clinicDto.getId(), clinic.getId());

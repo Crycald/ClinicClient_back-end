@@ -55,7 +55,7 @@ public class OperationControllerTestSuite {
 
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].clinic_id", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].clinicId", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].operations", Matchers.is(TypeOfOperation.AMPUTACJA.toString())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].cost", Matchers.is(1000)));
 
@@ -71,7 +71,7 @@ public class OperationControllerTestSuite {
                 .andExpect(MockMvcResultMatchers.status().is(200))
 
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.clinic_id", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.clinicId", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.operations", Matchers.is(TypeOfOperation.AMPUTACJA.toString())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.cost", Matchers.is(1000)));
     }
@@ -100,7 +100,7 @@ public class OperationControllerTestSuite {
 
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.clinic_id", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.clinicId", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.operations", Matchers.is(TypeOfOperation.AMPUTACJA.toString())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.cost", Matchers.is(1000)));
     }

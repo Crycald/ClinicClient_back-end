@@ -12,7 +12,7 @@ public class CustomerMapperTestSuite {
     private CustomerMapper mapper = new CustomerMapper();
     @Test
     public void testDtoToMap() {
-        CustomerDto customerDto = new CustomerDto(1L, "Chris", "Mops", "pwd123", "mail@mail.com", "123-123-123");
+        CustomerDto customerDto = new CustomerDto(1L, "Chris", "Mops", "login" ,"pwd123", "mail@mail.com", "123-123-123");
         Customer customer= mapper.map(customerDto);
 
         Assert.assertEquals(customer.getId(), customerDto.getId());

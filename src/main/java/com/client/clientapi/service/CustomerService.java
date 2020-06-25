@@ -38,7 +38,7 @@ public class CustomerService {
         return mapper.mapToDto(customer.orElseThrow(() -> new CustomerNotFoundException(id)));
     }
 
-    public void createCustomer(final CustomerDto customerDto) {
+    public CustomerDto createCustomer(final CustomerDto customerDto) {
         customerDto.setId(null);
         Customer customer = mapper.map(customerDto);
         mapper.mapToDto(repository.save(customer));
@@ -53,6 +53,8 @@ public class CustomerService {
         customerLogsService.createCustomerLogs(customerLogs);
 
         logger.info("CUSTOMER CREATED - ID: " + customer.getId());
+
+        return mapper.mapToDto(customer);
     }
 
     public void deleteCustomer(final Long id) {
@@ -86,5 +88,30 @@ public class CustomerService {
         logger.info("CUSTOMER UPDATED - ID: " + customer.getId());
 
         return mapper.mapToDto(repository.save(mapper.map(customerDto)));
+    }
+
+    public Long validateCustomerAndReturnId(final String login, final String password) {
+        Optional<Customer> customer = repository.findByLoginAndPassword(login, password);
+
+        if (customer.isPresent()) {
+            logger.info("USER HAS BEEN FOUND");
+            System.out.println("Customer ID: " + customer.get().getId());
+            return customer.get().getId();
+        } else {
+            logger.warn("USER NOT FOUND");
+            return null;
+        }
+    }
+
+    public Boolean validateCustomerLogin(final String login) {
+        Optional<Customer> customer = repository.findByLogin(login);
+
+        if (customer.isPresent()) {
+            logger.info("CUSTOMER WITH GIVEN LOGIN EXISTS");
+            return true;
+        } else {
+            logger.warn("USER NOT FOUND");
+            return false;
+        }
     }
 }

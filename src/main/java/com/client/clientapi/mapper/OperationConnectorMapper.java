@@ -23,8 +23,16 @@ public class OperationConnectorMapper {
         return new OperationConnectorDto(
                 operationConnector.getId(),
                 operationConnector.getClinicId().getId(),
+                operationConnector.getClinicId().getName(),
+                operationConnector.getClinicId().getAddress(),
                 operationConnector.getCustomerId().getId(),
-                operationConnector.getOperationId().getId()
+                operationConnector.getCustomerId().getFirstname(),
+                operationConnector.getCustomerId().getLastname(),
+                operationConnector.getCustomerId().getPhoneNumber(),
+                operationConnector.getOperationId().getId(),
+                operationConnector.getOperationId().getOperations().toString(),
+                operationConnector.getOperationId().getCost().longValue(),
+                operationConnector.getDate()
         );
     }
 

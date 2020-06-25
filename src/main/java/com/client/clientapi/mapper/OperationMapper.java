@@ -13,7 +13,7 @@ public class OperationMapper {
     public Operation map(final OperationDto operationDto, final Clinic clinic) {
         return Operation.builder()
                 .id(operationDto.getId())
-                .clinic_id(clinic)
+                .clinicId(clinic)
                 .operations(operationDto.getOperations())
                 .cost(operationDto.getCost())
                 .build();
@@ -22,7 +22,7 @@ public class OperationMapper {
     public OperationDto mapToDto(final Operation operation) {
         return new OperationDto(
                 operation.getId(),
-                operation.getClinic_id().getId(),
+                operation.getClinicId().getId(),
                 operation.getOperations(),
                 operation.getCost()
         );

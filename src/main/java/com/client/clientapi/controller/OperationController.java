@@ -42,4 +42,9 @@ public class OperationController {
     public OperationDto updateOperation(@RequestBody OperationDto operationDto) {
         return service.updateOperation(operationDto);
     }
+
+    @GetMapping(value = "/operations/getByClinicId/{id}")
+    public List<OperationDto> getOperationsByClinicId(@PathVariable Long id) {
+        return service.getOperationsByClinicId(id);
+    }
 }

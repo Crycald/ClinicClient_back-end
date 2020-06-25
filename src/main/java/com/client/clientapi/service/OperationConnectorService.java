@@ -49,7 +49,7 @@ public class OperationConnectorService {
         return mapper.mapToDto(operationConnector.orElseThrow(() -> new OperationConnectorNotFoundException(id)));
     }
 
-    public void createOperationConnector(final OperationConnectorDto operationConnectorDto) {
+    public OperationConnectorDto createOperationConnector(final OperationConnectorDto operationConnectorDto) {
         operationConnectorDto.setId(null);
         Clinic clinic = clinicRepository.findById(operationConnectorDto.getClinicId()).orElseThrow(() -> new ClinicNotFoundException(operationConnectorDto.getClinicId()));
         Customer customer = customerRepository.findById(operationConnectorDto.getCustomerId()).orElseThrow(() -> new CustomerNotFoundException(operationConnectorDto.getCustomerId()));
@@ -66,6 +66,8 @@ public class OperationConnectorService {
         operationConnectorLogsService.createOperationConnectorLogs(operationConnectorLogs);
 
         logger.info("OPERATION CONNECTOR CREATED - ID: " + operationConnector.getId());
+
+        return mapper.mapToDto(operationConnector);
     }
 
     public void deleteOperationConnector(final Long id) {
@@ -96,5 +98,13 @@ public class OperationConnectorService {
         logger.info("OPERATION CONNECTOR UPDATED - ID: " +operationConnector.getId());
 
         return mapper.mapToDto(repository.save(mapper.map(operationConnectorDto, clinic, customer, operation)));
+    }
+
+    public List<OperationConnectorDto> getListsByCustomerId(Long id) {
+        return mapper.list(repository.findAllByCustomerId_Id(id));
+    }
+
+    public List<OperationConnectorDto> getListsByClinicId(Long id) {
+        return mapper.list(repository.findAllByClinicId_Id(id));
     }
 }

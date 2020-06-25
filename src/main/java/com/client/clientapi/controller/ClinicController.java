@@ -1,6 +1,7 @@
 package com.client.clientapi.controller;
 
 import com.client.clientapi.domain.ClinicDto;
+import com.client.clientapi.domain.enums.TypeOfAnimal;
 import com.client.clientapi.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,20 @@ public class ClinicController {
     @PutMapping(value = "/clinics")
     public ClinicDto updateClinic(@RequestBody ClinicDto clinicDto) {
         return service.updateClinic(clinicDto);
+    }
+
+    @GetMapping(value = "/clinics/validate/{login}&{password}")
+    public Long validateClinic(@PathVariable String login, @PathVariable String password) {
+        return service.validateClinicAndReturnId(login, password);
+    }
+
+    @GetMapping(value = "/clinics/animal/{type}")
+    public List<ClinicDto> getClinicsName(@PathVariable TypeOfAnimal type) {
+        return service.getClinicsByTypeOfAnimal(type);
+    }
+
+    @GetMapping(value = "/clinics/validateLogin/{login}")
+    public Boolean validateClinicLogin(@PathVariable String login) {
+        return service.validateClinicLogin(login);
     }
 }

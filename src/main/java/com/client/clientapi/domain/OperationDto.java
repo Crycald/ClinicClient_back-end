@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Builder
 public class OperationDto {
     private Long id;
-    private Long clinic_id;
+    private Long clinicId;
     private TypeOfOperation operations;
     private BigDecimal cost;
 }

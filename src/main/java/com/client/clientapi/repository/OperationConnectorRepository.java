@@ -23,4 +23,8 @@ public interface OperationConnectorRepository extends CrudRepository<OperationCo
 
     @Override
     void deleteById(Long id);
+
+    List<OperationConnector> findAllByCustomerId_Id(Long id);
+
+    List<OperationConnector> findAllByClinicId_Id(Long id);
 }

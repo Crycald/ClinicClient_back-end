@@ -11,6 +11,7 @@ public class CustomerDto {
     private Long id;
     private String firstname;
     private String lastname;
+    private String login;
     private String password;
     private String email;
     private String phoneNumber;
