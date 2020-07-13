@@ -4,8 +4,11 @@ REST API documentation link: `http://localhost:8080/swagger-ui.html`
 
 _Steps:_
 --
-1. back-end project
-2. front-end project (`http://localhost:8090`)
+1. create database
+2. create db user
+3. create two environment variables - " POSTGRESQL_USER " & " POSTGRESQL_PWD " | where user is database user & pwd is database user's password
+4. run back-end project
+5. run front-end project (`http://localhost:8090`)
 
 ---
 
