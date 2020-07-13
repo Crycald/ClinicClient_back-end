@@ -38,14 +38,22 @@ public class OperationService {
         return mapper.list(repository.findAll());
     }
 
+    private OperationNotFoundException operationNotFound(Long id) {
+        return new OperationNotFoundException(id);
+    }
+
+    private ClinicNotFoundException clinicNotFound(Long id) {
+        return new ClinicNotFoundException(id);
+    }
+
     public OperationDto getOperationById(final Long id) {
         Optional<Operation> operations = repository.findById(id);
-        return mapper.mapToDto(operations.orElseThrow(() -> new OperationNotFoundException(id)));
+        return mapper.mapToDto(operations.orElseThrow(() -> operationNotFound(id)));
     }
 
     public OperationDto createOperation(final OperationDto operationDto) {
         operationDto.setId(null);
-        Clinic clinic = clinicRepository.findById(operationDto.getClinicId()).orElseThrow(() -> new ClinicNotFoundException(operationDto.getClinicId()));
+        Clinic clinic = clinicRepository.findById(operationDto.getClinicId()).orElseThrow(() -> clinicNotFound(operationDto.getClinicId()));
         Operation operation = mapper.map(operationDto, clinic);
         mapper.mapToDto(repository.save(operation));
 
@@ -65,13 +73,13 @@ public class OperationService {
             logger.info("OPERATION DELETED - ID: " + id);
         } catch (Exception e) {
             logger.warn("NOT FOUND OPERATION WITH ID: " + id);
-            throw new OperationNotFoundException(id);
+            throw operationNotFound(id);
         }
     }
 
     public OperationDto updateOperation(final OperationDto operationDto) {
-        Operation operation = repository.findById(operationDto.getId()).orElseThrow(() -> new OperationNotFoundException(operationDto.getId()));
-        Clinic clinic = clinicRepository.findById(operationDto.getClinicId()).orElseThrow(() -> new ClinicNotFoundException(operationDto.getClinicId()));
+        Operation operation = repository.findById(operationDto.getId()).orElseThrow(() -> operationNotFound(operationDto.getId()));
+        Clinic clinic = clinicRepository.findById(operationDto.getClinicId()).orElseThrow(() -> clinicNotFound(operationDto.getClinicId()));
 
         OperationLogs operationLogs = new OperationLogs();
         operationLogs.setOperationId(operation);

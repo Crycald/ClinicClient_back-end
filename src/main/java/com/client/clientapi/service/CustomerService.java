@@ -33,9 +33,13 @@ public class CustomerService {
         return mapper.list(repository.findAll());
     }
 
+    private CustomerNotFoundException customerNotFound(Long id) {
+        return new CustomerNotFoundException(id);
+    }
+
     public CustomerDto getCustomerById(final Long id) {
         Optional<Customer> customer = repository.findById(id);
-        return mapper.mapToDto(customer.orElseThrow(() -> new CustomerNotFoundException(id)));
+        return mapper.mapToDto(customer.orElseThrow(() -> customerNotFound(id)));
     }
 
     public CustomerDto createCustomer(final CustomerDto customerDto) {
@@ -63,12 +67,12 @@ public class CustomerService {
             logger.info("CUSTOMER DELETED - ID: " + id);
         } catch (Exception e) {
             logger.warn("NOT FOUND CUSTOMER WITH ID: " + id);
-            throw new CustomerNotFoundException(id);
+            throw customerNotFound(id);
         }
     }
 
     public CustomerDto updateCustomer(final CustomerDto customerDto) {
-        Customer customer = repository.findById(customerDto.getId()).orElseThrow(() -> new CustomerNotFoundException(customerDto.getId()));
+        Customer customer = repository.findById(customerDto.getId()).orElseThrow(() -> customerNotFound(customerDto.getId()));
 
         CustomerLogs customerLogs = new CustomerLogs();
         customerLogs.setCustomerId(customer);
