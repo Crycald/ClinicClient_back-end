@@ -44,6 +44,22 @@ public class OperationConnectorService {
         return mapper.list(repository.findAll());
     }
 
+    private ClinicNotFoundException clinicNotFound(Long id) {
+        return new ClinicNotFoundException(id);
+    }
+
+    private CustomerNotFoundException customerNotFound(Long id) {
+        return new CustomerNotFoundException(id);
+    }
+
+    private OperationNotFoundException operationNotFound(Long id) {
+        return new OperationNotFoundException(id);
+    }
+
+    private OperationConnectorNotFoundException operationConnectorNotFound(Long id) {
+        return new OperationConnectorNotFoundException(id);
+    }
+
     public OperationConnectorDto getOperationConnectorById(final Long id) {
         Optional<OperationConnector> operationConnector = repository.findById(id);
         return mapper.mapToDto(operationConnector.orElseThrow(() -> new OperationConnectorNotFoundException(id)));
@@ -51,9 +67,9 @@ public class OperationConnectorService {
 
     public OperationConnectorDto createOperationConnector(final OperationConnectorDto operationConnectorDto) {
         operationConnectorDto.setId(null);
-        Clinic clinic = clinicRepository.findById(operationConnectorDto.getClinicId()).orElseThrow(() -> new ClinicNotFoundException(operationConnectorDto.getClinicId()));
-        Customer customer = customerRepository.findById(operationConnectorDto.getCustomerId()).orElseThrow(() -> new CustomerNotFoundException(operationConnectorDto.getCustomerId()));
-        Operation operation = operationRepository.findById(operationConnectorDto.getOperationActId()).orElseThrow(() -> new OperationNotFoundException(operationConnectorDto.getOperationActId()));
+        Clinic clinic = clinicRepository.findById(operationConnectorDto.getClinicId()).orElseThrow(() -> clinicNotFound(operationConnectorDto.getClinicId()));
+        Customer customer = customerRepository.findById(operationConnectorDto.getCustomerId()).orElseThrow(() -> customerNotFound(operationConnectorDto.getCustomerId()));
+        Operation operation = operationRepository.findById(operationConnectorDto.getOperationActId()).orElseThrow(() -> operationNotFound(operationConnectorDto.getOperationActId()));
         OperationConnector operationConnector = mapper.map(operationConnectorDto, clinic, customer, operation);
         mapper.mapToDto(repository.save(operationConnector));
 
@@ -76,16 +92,16 @@ public class OperationConnectorService {
             logger.info("OPERATION CONNECTOR DELETED - ID: " + id);
         } catch (Exception e) {
             logger.warn("NOT FOUND OPERATION CONNECTOR WITH ID: " + id);
-            throw new OperationConnectorNotFoundException(id);
+            throw operationConnectorNotFound(id);
         }
 
     }
 
     public OperationConnectorDto updateOperationConnector(final OperationConnectorDto operationConnectorDto) {
-        OperationConnector operationConnector = repository.findById(operationConnectorDto.getId()).orElseThrow(() -> new OperationConnectorNotFoundException(operationConnectorDto.getId()));
-        Clinic clinic = clinicRepository.findById(operationConnectorDto.getClinicId()).orElseThrow(() -> new ClinicNotFoundException(operationConnectorDto.getClinicId()));
-        Customer customer = customerRepository.findById(operationConnectorDto.getCustomerId()).orElseThrow(() -> new CustomerNotFoundException(operationConnectorDto.getCustomerId()));
-        Operation operation = operationRepository.findById(operationConnectorDto.getOperationActId()).orElseThrow(() -> new OperationNotFoundException(operationConnectorDto.getOperationActId()));
+        OperationConnector operationConnector = repository.findById(operationConnectorDto.getId()).orElseThrow(() -> operationConnectorNotFound(operationConnectorDto.getId()));
+        Clinic clinic = clinicRepository.findById(operationConnectorDto.getClinicId()).orElseThrow(() -> clinicNotFound(operationConnectorDto.getClinicId()));
+        Customer customer = customerRepository.findById(operationConnectorDto.getCustomerId()).orElseThrow(() -> customerNotFound(operationConnectorDto.getCustomerId()));
+        Operation operation = operationRepository.findById(operationConnectorDto.getOperationActId()).orElseThrow(() -> operationNotFound(operationConnectorDto.getOperationActId()));
 
         OperationConnectorLogs operationConnectorLogs = new OperationConnectorLogs();
         operationConnectorLogs.setOperationConnectorId(operationConnector);

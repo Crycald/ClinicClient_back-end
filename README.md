@@ -11,6 +11,8 @@ _Steps:_
 
 IntelliJ IDEA Ultimate version: `2020.1.2` | `Build 201.7846.76`
 
+DB: `PostgreSQL 12.3`
+
 java version: `1.8.0_252`
 
 spring-boot version: `2.3.1.RELEASE`

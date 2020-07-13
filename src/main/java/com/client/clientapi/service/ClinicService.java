@@ -34,9 +34,13 @@ public class ClinicService {
         return mapper.list(repository.findAll());
     }
 
+    private ClinicNotFoundException clinicNotFound(Long id) {
+        return new ClinicNotFoundException(id);
+    }
+
     public ClinicDto getClinicById(final Long id) {
         Optional<Clinic> clinic = repository.findById(id);
-        return mapper.mapToDto(clinic.orElseThrow(() -> new ClinicNotFoundException(id)));
+        return mapper.mapToDto(clinic.orElseThrow(() -> clinicNotFound(id)));
     }
 
     public ClinicDto createClinic(final ClinicDto clinicDto) {
@@ -65,12 +69,12 @@ public class ClinicService {
             logger.info("CLINIC DELETED - ID: " + id);
         } catch (Exception e) {
             logger.warn("NOT FOUND CLINIC WITH ID: " + id);
-            throw new ClinicNotFoundException(id);
+            throw clinicNotFound(id);
         }
     }
 
     public ClinicDto updateClinic(final ClinicDto clinicDto) {
-        Clinic clinic = repository.findById(clinicDto.getId()).orElseThrow(() -> new ClinicNotFoundException(clinicDto.getId()));
+        Clinic clinic = repository.findById(clinicDto.getId()).orElseThrow(() -> clinicNotFound(clinicDto.getId()));
 
         ClinicLogs clinicLogs = new ClinicLogs();
         clinicLogs.setClinicId(clinic);
