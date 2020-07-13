@@ -62,7 +62,7 @@ public class OperationConnectorService {
 
     public OperationConnectorDto getOperationConnectorById(final Long id) {
         Optional<OperationConnector> operationConnector = repository.findById(id);
-        return mapper.mapToDto(operationConnector.orElseThrow(() -> new OperationConnectorNotFoundException(id)));
+        return mapper.mapToDto(operationConnector.orElseThrow(() -> operationConnectorNotFound(id)));
     }
 
     public OperationConnectorDto createOperationConnector(final OperationConnectorDto operationConnectorDto) {
